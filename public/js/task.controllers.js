@@ -323,15 +323,20 @@ taskControllers.controller('ViewTasksCtrl', ['$scope', 'TasksFactory',
 
         $scope._pagingOptions = {
           pageSize: 4,
-          currentPage: 1
+          currentPage: 1,
+          totalItems: 0,
+          pageCount: 0
         };
 
         $scope._setPagingData = function(tasks, page, pageSize) {
             var pagedTasks = tasks.slice((page - 1) * pageSize, page * pageSize);
             $scope.pagetasks = pagedTasks;
-/*            if (!$scope.$$phase) {
-                $scope.apply();
-            }*/
+            $scope._pagingOptions.totalItems = tasks.length;
+            $scope._pagingOptions.pageCount = tasks.length % $scope._pagingOptions.pageSize;
+        };
+
+        $scope.pageChanged = function() {
+            $scope._loadTasks($scope._pagingOptions.pageSize, $scope._pagingOptions.currentPage);
         };
 
         $scope._loadTasks = function(pageSize, page) {

@@ -16,6 +16,5 @@ block task-content
                             div
                                 {{ task.params.owner.first_name }}&nbsp{{task.params.owner.last_name}}
                         td {{ task.name }}
-            span {{_pagingOptions.currentPage}}
-
+            pagination(boundary-links="true" total-items="_pagingOptions.totalItems" max-size="_pagingOptions.pageCount" ng-model="_pagingOptions.currentPage" items-per-page="_pagingOptions.pageSize" ng-change="pageChanged()").pagination-sm
             
