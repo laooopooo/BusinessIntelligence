@@ -40,9 +40,6 @@ taskControllers.controller('TaskCtrl', ['$scope', 'TasksFactory', 'DependencyFac
 
             return condition.consumerTasks;
         };
-
-        $scope.tasks = TasksFactory.query();
-        
     }]);
 
 taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'ConditionsFactory', 'PartnersFactory', 'ConditionBuilder', 'DependencyFactory', '$window', '$modal',
@@ -315,6 +312,33 @@ taskControllers.controller('ViewTaskCtrl', ['$scope', 'TaskFactory', '$modal',
             });
         };
     }]);
+
+taskControllers.controller('ViewTasksCtrl', ['$scope', 'TasksFactory',
+    function ($scope, TasksFactory) {
+
+        $scope._pagingOptions = {
+          pageSize: 4,
+          currentPage: 1
+        };
+
+        $scope._setPagingData = function(tasks, page, pageSize) {
+            var pagedTasks = tasks.slice((page - 1) * pageSize, page * pageSize);
+            $scope.pagetasks = pagedTasks;
+/*            if (!$scope.$$phase) {
+                $scope.apply();
+            }*/
+        };
+
+        $scope._loadTasks = function(pageSize, page) {
+            TasksFactory.query(function(result) {
+                return $scope._setPagingData(result, page, pageSize);
+            });
+        };
+
+        $scope._loadTasks($scope._pagingOptions.pageSize, $scope._pagingOptions.currentPage);
+
+    }]);
+
 
 taskControllers.controller('ViewConditionCtrl', ['$scope', '$modalInstance', 'condition',
     function ($scope, $modalInstance, condition) {

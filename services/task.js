@@ -101,13 +101,13 @@ var TaskService = Base.extend(function (user) {
                     return userRepository.getById(task.audit.created_by, function (error, user) {
                         if (error) return callback(error);
                          
-                        var owner = (user != null) ? util.format('%s/%s %s', user.email, user.first_name, user.last_name) : "System";
+                        //var owner = (user != null) ? util.format('%s/%s %s', user.email, user.first_name, user.last_name) : "System";
                             
                         return callback(error, {
                             task: task,
                             params: {
-                                owner : owner,
-                                created_date : task.audit.created_date 
+                                owner : user,
+                                created_date : task.audit.created_date
                             }
                         });
                     });

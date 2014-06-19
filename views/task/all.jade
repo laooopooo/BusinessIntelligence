@@ -1,14 +1,21 @@
 ﻿extends ./layout
 
 block task-content
-    .form-group
-        table.table.table-striped(style="margin-bottom: 0px")
-            thead 
-                th DATE
-                th ADDED BY
-                th TASK NAME
-            tbody
-                tr(ng-repeat="task in tasks")
-                    td {{ task.params.created_date | date:'yyyy-MM-dd' }}
-                    td {{ task.params.owner }}
-                    td {{ task.name }}
+    div(ng-controller="ViewTasksCtrl").form-group.well
+        form(role="form")
+            table.table.table-striped(style="margin-bottom: 0px")
+                thead 
+                    th DATE
+                    th ADDED BY
+                    th TASK NAME
+                tbody
+                    tr(ng-repeat="task in pagetasks")
+                        td {{ task.params.created_date | date:'yyyy-MM-dd' }}
+                        td 
+                            img#img-avatar-load.image-avatar-small(ng-src="/{{task.params.owner.avatar}}")
+                            div
+                                {{ task.params.owner.first_name }}&nbsp{{task.params.owner.last_name}}
+                        td {{ task.name }}
+            span {{_pagingOptions.currentPage}}
+
+            
