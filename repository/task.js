@@ -271,11 +271,18 @@ var TaskRepository = Base.extend(function (user) {
         findTasksCreatedAfter: function(date, done) {
             ///<summary>Finds tasks created after certain date</summary>
             
+            var user = this.user;
             return Task.find({
                 'audit.created_date': {
                     $gt: date
                 }
-            }, done);
+            }, function(err, tasks) {
+                if (err) return done(err);
+
+                return done(err, Enumerable.from(tasks).where(function(task) {
+                    return task.audit.created_by != user.id;
+                }).toArray());
+            });
         },
 
         _createSnapshot: function(task, done) {
