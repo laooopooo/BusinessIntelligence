@@ -4,7 +4,7 @@
 ]);
 
 taskControllers.controller('TaskCtrl', ['$scope', 'TasksFactory', 'DependencyFactory',
-    function ($scope, TasksFactory, DependencyFactory) {
+    function ($scope, TasksFactory, DependencyFactory, TaskSearchFactory) {
         $scope.getProducerTasks = function(condition) {
             if (!condition.producerTasks) {
                 condition.producerTasks = [];
@@ -146,7 +146,9 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
 
                         modalInstance.result.then(function (resultCondition) {
                             if (condition.id) {
-                                return $.extend(true, condition, ConditionBuilder.build(resultCondition));
+                                var resultCondition = ConditionBuilder.build(resultCondition);
+                                $.extend(true, condition, resultCondition);
+                                condition.affects = $.extend(true, [], resultCondition.affects);
                             } else {
                                 resultCondition.id = ObjectId();
 
@@ -300,13 +302,16 @@ taskControllers.controller('ViewTaskCtrl', ['$scope', 'TaskFactory', '$modal',
             });
         };
 
-        $scope.viewCondition = function(condition) {
+        $scope.viewCondition = function(condition, mode) {
             $modal.open({
                 templateUrl: '/task/condition/view',
                 controller: 'ViewConditionCtrl',
                 resolve: {
                     condition: function() {
                         return condition;
+                    },
+                    mode: function() {
+                        return mode;
                     }
                 }
             });
@@ -340,19 +345,20 @@ taskControllers.controller('ViewTasksCtrl', ['$scope', 'TasksFactory',
     }]);
 
 
-taskControllers.controller('ViewConditionCtrl', ['$scope', '$modalInstance', 'condition',
-    function ($scope, $modalInstance, condition) {
+taskControllers.controller('ViewConditionCtrl', ['$scope', '$modalInstance', 'condition', 'mode',
+    function ($scope, $modalInstance, condition, mode) {
 
         $scope.condition = condition;
+
+        $scope.mode = mode;
 
         $scope.close = function() {
             return $modalInstance.dismiss();
         };
     }]);
 
-taskControllers.controller('CreateUpdateConditionCtrl', ['$scope', 'ConditionsFactory', '$modalInstance', 'condition', 'mode',
-    function($scope, ConditionsFactory, $modalInstance, condition, mode) {
-
+taskControllers.controller('CreateUpdateConditionCtrl', ['$scope', 'ConditionsFactory', '$modalInstance', 'condition', 'mode', 'TaskSearchFactory',
+    function($scope, ConditionsFactory, $modalInstance, condition, mode, TaskSearchFactory) {
         $scope.condition = $.extend(true, {
             condition_type: "Setting",
             setting: {
@@ -362,13 +368,14 @@ taskControllers.controller('CreateUpdateConditionCtrl', ['$scope', 'ConditionsFa
             },
             description: '',
             ui: {
-                input: '',
-                output: ''
+                input: [],
+                output: []
             },
             api: {
-                input: '',
-                output: ''
+                input: [],
+                output: []
             },
+            affects: [],
             getValues: function(name, value) {
                 if (value) {
                     return ConditionsFactory
@@ -390,6 +397,63 @@ taskControllers.controller('CreateUpdateConditionCtrl', ['$scope', 'ConditionsFa
             },
             description: condition.preferred_name
         }, condition);
+
+        $scope.ui = {
+            values: {
+                select : function(name) {
+                    return {
+                        minimumInputLength: 3,
+                        multiple: true,
+                        query: function(query) {
+                            return ConditionsFactory
+                            .query({
+                                name: name,
+                                value: query.term
+                            }, function(values) {
+                                var results = Enumerable.from(values).union([
+                                {
+                                    value: query.term
+                                }]).distinct(function(settingValue) {
+                                    return settingValue.value;
+                                }).select(function(settingValue) {
+                                        return {
+                                            id: settingValue.value,
+                                            text: settingValue.value
+                                        };
+                                    }).toArray();
+                                return query.callback({ results: results });
+                            });
+                        },
+                        simple_tags: true
+                    };
+                }
+            }
+        };
+
+        $scope.searchTasks = function(criteria) {
+            if (criteria.length >= 3) {
+                return TaskSearchFactory.query({
+                    criteria: criteria
+                }).$promise.then(function(tasks) {
+                    return tasks;
+                });
+            }
+
+            return [];
+        };
+
+        $scope.pushAffect = function(task) {
+            $scope.condition.searchAffectTask = '';
+
+            $scope.condition.affects.push({
+                task: task
+            });
+        };
+
+        $scope.removeAffect = function(affect) {
+            var index = $scope.condition.affects.indexOf(affect);
+            return $scope.condition.affects.splice(index, 1);
+        };
 
         $scope.mode = mode;
 

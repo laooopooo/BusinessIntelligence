@@ -3,7 +3,8 @@
     ConditionSnapshot = require('../models/condition.snapshot'),
     Enumerable = require('linq'),
     extend = require('extend'),
-    obj = require('../modules/obj');
+    obj = require('../modules/obj'),
+    _ = require('lodash');
 
 var ConditionRepository = Base.extend(function (user) {
         this.user = user;
@@ -50,7 +51,14 @@ var ConditionRepository = Base.extend(function (user) {
                     }
                 });
 
-                extend(condition, conditionDto, {
+                _.merge(condition, conditionDto, {
+                    affects: Enumerable.from(conditionDto.affects).select(function(affect) {
+                        return {
+                            _id: affect.id,
+                            task : affect.task.id,
+                            description: affect.description
+                        };
+                    }).toArray(),
                     audit: {
                         modified_by: user.id,
                         modified_date: new Date(),
@@ -73,7 +81,7 @@ var ConditionRepository = Base.extend(function (user) {
                 if (err) return done(err);
 
                 return done(err, Enumerable.from(values).where(function(singleValue) {
-                    return singleValue.match(new RegExp(value, 'i'));
+                    return singleValue && singleValue.match(new RegExp(value, 'i'));
                 }).toArray());
             });
         },

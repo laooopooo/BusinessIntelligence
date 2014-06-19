@@ -2,6 +2,11 @@
     mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
+var Affect = new Schema({
+    task: { type: Schema.Types.ObjectId, ref: 'Task', index: 1 },
+    description: String
+});
+
 var conditionSnapshotSchema = new Schema({
     conditionId: { type: Schema.Types.ObjectId, required: 1, index: 1 },
     name: String,
@@ -13,14 +18,15 @@ var conditionSnapshotSchema = new Schema({
     },
     description: String,
     ui: {
-        input: String,
-        output: String
+        input: [String],
+        output: [String]
     },
     api: {
-        input: String,
-        output: String
+        input: [String],
+        output: [String]
     },
     note: String,
+    affects: [Affect],
     audit: {
         created_by: { type: Schema.Types.ObjectId, ref: 'User' },
         modified_by: { type: Schema.Types.ObjectId, ref: 'User' },
@@ -39,6 +45,7 @@ conditionSnapshotSchema.statics.create = function(condition) {
         ui: condition.ui,
         api: condition.api,
         note: condition.note,
+        affects: condition.affects,
         audit: condition.audit
     });
 };
@@ -54,7 +61,8 @@ conditionSnapshotSchema.methods.toDto = function() {
         description: this.description,
         ui: this.ui,
         api: this.api,
-        note: this.note
+        note: this.note,
+        affects: this.affects
     };
 };
 
