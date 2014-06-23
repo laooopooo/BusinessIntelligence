@@ -5,10 +5,18 @@ block task-content
         form(role="form")
             table.table.table-striped(style="margin-bottom: 0px")
                 thead 
-                    th DATE
+                    th(style="width:20%") DATE                     
                     th ADDED BY
                     th TASK NAME
                 tbody
+                    tr
+                        td
+                            div
+                                p.input-group
+                                    input(type="text" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" ng-change="dateChanged()").form-control
+                                    span.input-group-btn
+                                        button(type="button" class="btn btn-default" ng-click="open($event)") 
+                                            i.glyphicon.glyphicon-calendar                              
                     tr(ng-repeat="task in pagetasks")
                         td {{ task.params.created_date | date:'yyyy-MM-dd' }}
                         td 

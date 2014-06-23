@@ -321,6 +321,22 @@ taskControllers.controller('ViewTaskCtrl', ['$scope', 'TaskFactory', '$modal',
 taskControllers.controller('ViewTasksCtrl', ['$scope', 'TasksFactory',
     function ($scope, TasksFactory) {
 
+        /* Datepicker stuff */
+
+        $scope.initDatePicker = function() {
+           $scope.dt = new Date();
+        };
+        
+        $scope.open = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            $scope.opened = true;
+        };
+
+        $scope.format = 'dd/MM/yyyy';
+        
+        /* Paging stuff */
+
         $scope._pagingOptions = {
           pageSize: 4,
           currentPage: 1,
@@ -336,17 +352,22 @@ taskControllers.controller('ViewTasksCtrl', ['$scope', 'TasksFactory',
         };
 
         $scope.pageChanged = function() {
-            $scope._loadTasks($scope._pagingOptions.pageSize, $scope._pagingOptions.currentPage);
+            $scope._loadTasks($scope._pagingOptions.pageSize, $scope._pagingOptions.currentPage, {});
         };
 
-        $scope._loadTasks = function(pageSize, page) {
-            TasksFactory.query(function(result) {
+        $scope._loadTasks = function(pageSize, page, filter) {
+            TasksFactory.query(filter, function(result) {
                 return $scope._setPagingData(result, page, pageSize);
             });
         };
 
-        $scope._loadTasks($scope._pagingOptions.pageSize, $scope._pagingOptions.currentPage);
+        $scope.dateChanged = function() {
+            var filter = { date: $scope.dt };
+            $scope._loadTasks($scope._pagingOptions.pageSize, $scope._pagingOptions.currentPage, filter);
+        };
 
+        $scope._loadTasks($scope._pagingOptions.pageSize, $scope._pagingOptions.currentPage, {});
+        $scope.initDatePicker();
     }]);
 
 

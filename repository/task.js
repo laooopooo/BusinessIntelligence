@@ -253,6 +253,14 @@ var TaskRepository = Base.extend(function (user) {
         },
 
         findAllTasks: function(taskCriteria, done) {
+            if (taskCriteria.date) {
+                return Task.find({ 
+                    'audit.created_date' : {
+                        $gt: taskCriteria.date
+                    }
+                }, done);
+            }
+
             return Task.find(taskCriteria, done);
         },
 
