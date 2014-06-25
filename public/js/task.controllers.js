@@ -435,6 +435,16 @@ taskControllers.controller('CreateUpdateConditionCtrl', ['$scope', 'ConditionsFa
                 return TaskSearchFactory.query({
                     criteria: criteria
                 }).$promise.then(function(tasks) {
+                    tasks.push({
+                                name: sprintf('Create new Task "%s"', criteria),
+                                preferred_name: criteria,
+                                is_transient: 1,
+                                description: 'TBD',
+                                external_id: 'TBD',
+                                availability: {
+                                    availability_type: 0
+                                }
+                            });
                     return tasks;
                 });
             }
@@ -445,6 +455,12 @@ taskControllers.controller('CreateUpdateConditionCtrl', ['$scope', 'ConditionsFa
         $scope.pushAffect = function(task) {
             $scope.condition.searchAffectTask = '';
 
+            if (task.is_transient) {
+                $.extend(task, {
+                    id: ObjectId(),
+                    name: task.preferred_name
+                });
+            }
             $scope.condition.affects.push({
                 task: task
             });

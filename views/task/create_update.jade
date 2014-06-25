@@ -113,7 +113,8 @@ block task-content
                                         a(ng-click="task.$output.createUpdateCondition(output, condition)") {{condition.name}}
                                     td
                                         div(ng-repeat="affect in condition.affects")
-                                            a(ng-href="/task/view/{{affect.task.id}}", target="_blank", popover="{{affect.description}}", popover-trigger="mouseenter", popover-popup-delay="300", popover-placement="right") {{affect.task.name}}
+                                            a(ng-if="!affect.task.is_transient", ng-href="/task/view/{{affect.task.id}}", target="_blank", popover="{{affect.description}}", popover-trigger="mouseenter", popover-popup-delay="300", popover-placement="right") {{affect.task.name}}
+                                            span(ng-if="affect.task.is_transient", popover="{{affect.description}}", popover-trigger="mouseenter", popover-popup-delay="300", popover-placement="right") {{affect.task.name}}
                                     td
                                         div(ng-repeat="output in condition.ui.output track by $index")
                                             | {{output}}

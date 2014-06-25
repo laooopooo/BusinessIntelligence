@@ -65,6 +65,7 @@ var TaskRepository = Base.extend(function (user) {
                                         return Task.findById(affect.task, function(err, task) {
                                             if (err) return affectProcessedCallback(err);
 
+
                                             return affectProcessedCallback(err, {
                                                 id: affect.id,
                                                 task: task.toDto(),
@@ -123,7 +124,10 @@ var TaskRepository = Base.extend(function (user) {
             ///<param name="done">Done callback</param>
             
             var user = this.user,
-                taskRepository = this;
+                taskRepository = this,
+                conditionRepository = new ConditionRepository(user, {
+                    taskRepository: taskRepository
+                });
             
             return Task.findById(taskDto.id, function(err, task) {
                 task = task || new Task({
@@ -155,7 +159,7 @@ var TaskRepository = Base.extend(function (user) {
                             return input.conditions.length;
                         }).toArray(), function(input, inputCallback) {
                             return async.mapSeries(input.conditions, function(condition, conditionCallback) {
-                                return new ConditionRepository(user).save(condition, conditionCallback);
+                                return conditionRepository.save(condition, conditionCallback);
                             }, function(err, conditions) {
                                 if (err) return inputCallback(err);
 
@@ -179,7 +183,7 @@ var TaskRepository = Base.extend(function (user) {
                             return output.conditions.length;
                         }).toArray(), function(output, outputCallback) {
                             return async.mapSeries(output.conditions, function(condition, conditionCallback) {
-                                return new ConditionRepository(user).save(condition, conditionCallback);
+                                return conditionRepository.save(condition, conditionCallback);
                             }, function(err, conditions) {
                                 if (err) return outputCallback(err);
 

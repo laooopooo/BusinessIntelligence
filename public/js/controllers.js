@@ -51,6 +51,7 @@ controllers.controller('NavbarCtrl', ['$scope', '$window', 'Application', 'Metri
             var allTasks = {
                 id: 'AllTasks',
                 name: 'ALL TASKS',
+                icon: 'glyphicon glyphicon-list',
                 type: 'button',
                 path: '/task/all'
             };

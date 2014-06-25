@@ -4,7 +4,7 @@
 
 var Affect = new Schema({
     task: { type: Schema.Types.ObjectId, ref: 'Task', index: 1 },
-    description: String
+    description: { type: String, default: '' }
 });
 
 var conditionSchema = new Schema({

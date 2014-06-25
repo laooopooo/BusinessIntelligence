@@ -4,10 +4,12 @@
     Enumerable = require('linq'),
     extend = require('extend'),
     obj = require('../modules/obj'),
-    _ = require('lodash');
+    _ = require('lodash'),
+    async = require('async');
 
-var ConditionRepository = Base.extend(function (user) {
+var ConditionRepository = Base.extend(function (user, repositories) {
         this.user = user;
+        this.repositories = repositories || {};
     })
     .methods({
         findByName: function(name, done) {
@@ -42,7 +44,8 @@ var ConditionRepository = Base.extend(function (user) {
 
         save: function(conditionDto, done) {
             var user = this.user,
-                conditionRepository = this;
+                conditionRepository = this,
+                taskRepository = this.repositories.taskRepository;
             return Condition.findById(conditionDto.id, function(err, condition) {
                 condition = condition || new Condition({
                     _id: conditionDto.id,
@@ -51,27 +54,43 @@ var ConditionRepository = Base.extend(function (user) {
                     }
                 });
 
-                _.merge(condition, conditionDto, {
-                    affects: Enumerable.from(conditionDto.affects).select(function(affect) {
+                return async.map(conditionDto.affects, function(affect, affectProcessedCallback) {
+                    if (affect.task.is_transient) {
+                        return taskRepository.save(affect.task, function(err, task) {
+
+                            affect.task = task;
+
+                            return affectProcessedCallback(err, affect);
+                        });
+                    }
+
+                    return affectProcessedCallback(null, affect);
+                }, function(err, affects) {
+                    if (err) return done(err);
+
+                    conditionDto.affects = Enumerable.from(affects).select(function(affect) {
                         return {
                             _id: affect.id,
                             task : affect.task.id,
                             description: affect.description
                         };
-                    }).toArray(),
-                    audit: {
-                        modified_by: user.id,
-                        modified_date: new Date(),
-                        revision: condition.audit.revision + 1
-                    }
-                });
+                    }).toArray();
 
-                return condition.save(function (err) {
-                    if (err) return done(err);
+                    extend(condition, conditionDto, {
+                        audit: {
+                            modified_by: user.id,
+                            modified_date: new Date(),
+                            revision: condition.audit.revision + 1
+                        }
+                    });
 
-                    return conditionRepository._createSnapshot(condition, function(err) {
-                        return done(err, condition);
-                    }); 
+                    return condition.save(function (err) {
+                        if (err) return done(err);
+
+                        return conditionRepository._createSnapshot(condition, function(err) {
+                            return done(err, condition);
+                        }); 
+                    });
                 });
             });
         },
