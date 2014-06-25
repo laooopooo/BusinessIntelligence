@@ -321,27 +321,53 @@ taskControllers.controller('ViewTaskCtrl', ['$scope', 'TaskFactory', '$modal',
 taskControllers.controller('ViewTasksCtrl', ['$scope', 'TasksFactory',
     function ($scope, TasksFactory) {
 
+        /* Datepicker stuff */
+
+        $scope.initDatePicker = function() {
+           $scope.dt = new Date();
+        };
+        
+        $scope.open = function($event) {
+            $event.preventDefault();
+            $event.stopPropagation();
+            $scope.opened = true;
+        };
+
+        $scope.format = 'dd/MM/yyyy';
+        
+        /* Paging stuff */
+
         $scope._pagingOptions = {
           pageSize: 4,
-          currentPage: 1
+          currentPage: 1,
+          totalItems: 0,
+          pageCount: 0
         };
 
         $scope._setPagingData = function(tasks, page, pageSize) {
             var pagedTasks = tasks.slice((page - 1) * pageSize, page * pageSize);
             $scope.pagetasks = pagedTasks;
-/*            if (!$scope.$$phase) {
-                $scope.apply();
-            }*/
+            $scope._pagingOptions.totalItems = tasks.length;
+            $scope._pagingOptions.pageCount = tasks.length % $scope._pagingOptions.pageSize;
         };
 
-        $scope._loadTasks = function(pageSize, page) {
-            TasksFactory.query(function(result) {
+        $scope.pageChanged = function() {
+            $scope._loadTasks($scope._pagingOptions.pageSize, $scope._pagingOptions.currentPage, {});
+        };
+
+        $scope._loadTasks = function(pageSize, page, filter) {
+            TasksFactory.query(filter, function(result) {
                 return $scope._setPagingData(result, page, pageSize);
             });
         };
 
-        $scope._loadTasks($scope._pagingOptions.pageSize, $scope._pagingOptions.currentPage);
+        $scope.dateChanged = function() {
+            var filter = { date: $scope.dt };
+            $scope._loadTasks($scope._pagingOptions.pageSize, $scope._pagingOptions.currentPage, filter);
+        };
 
+        $scope._loadTasks($scope._pagingOptions.pageSize, $scope._pagingOptions.currentPage, {});
+        $scope.initDatePicker();
     }]);
 
 
