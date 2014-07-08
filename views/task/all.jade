@@ -21,8 +21,8 @@ block task-content
                         td {{ task.params.created_date | date:'yyyy-MM-dd' }}
                         td 
                             img#img-avatar-load.image-avatar-small(ng-src="/{{task.params.owner.avatar}}")
-                            div
-                                {{ task.params.owner.first_name }}&nbsp{{task.params.owner.last_name}}
-                        td {{ task.name }}
+                            |  {{task.params.owner.first_name}} {{task.params.owner.last_name}}
+                        td
+                            a(ng-href="/task/view/{{task.id}}") {{task.name}}
             pagination(boundary-links="true" total-items="_pagingOptions.totalItems" max-size="_pagingOptions.pageCount" ng-model="_pagingOptions.currentPage" items-per-page="_pagingOptions.pageSize" ng-change="pageChanged()").pagination-sm
             
