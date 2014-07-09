@@ -333,15 +333,15 @@ taskControllers.controller('ViewTasksCtrl', ['$scope', 'TasksFactory',
             $scope.opened = true;
         };
 
-        $scope.format = 'dd/MM/yyyy';
+        $scope.format = 'yyyy-MM-dd';
         
         /* Paging stuff */
 
         $scope._pagingOptions = {
-          pageSize: 4,
+          pageSize: 10,
           currentPage: 1,
           totalItems: 0,
-          pageCount: 0
+          pageCount: 5
         };
 
         $scope._setPagingData = function(tasks, page, pageSize) {
@@ -362,7 +362,7 @@ taskControllers.controller('ViewTasksCtrl', ['$scope', 'TasksFactory',
         };
 
         $scope.dateChanged = function() {
-            var filter = { date: $scope.dt };
+            var filter = { date: $scope.dt.getTime() };
             $scope._loadTasks($scope._pagingOptions.pageSize, $scope._pagingOptions.currentPage, filter);
         };
 

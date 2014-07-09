@@ -260,7 +260,7 @@ var TaskRepository = Base.extend(function (user) {
             if (taskCriteria.date) {
                 return Task.find({ 
                     'audit.created_date' : {
-                        $gt: taskCriteria.date
+                        $gt: new Date(taskCriteria.date)
                     }
                 }, done);
             }
