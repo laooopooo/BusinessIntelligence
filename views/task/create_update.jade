@@ -141,5 +141,5 @@ block task-content
                     |  
                     a(ng-click="task.$output.add()") Add Output
             br
-            input(type="submit", value="Submit", ng-disabled="!validate()").btn.btn-primary
+            input(type="submit", value="Submit", ng-disabled="!validate() || submitting").btn.btn-primary
             a.btn.btn-default(type="button", href="/") Cancel

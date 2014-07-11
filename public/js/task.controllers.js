@@ -282,11 +282,11 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
         };
 
         $scope.submit = function() {
-            $scope.saving = 1;
+            $scope.submitting = 1;
             TaskFactory.save($scope.task, function(task) {
-                $scope.saving = 0;
-
                 $window.location.href = sprintf('/task/view/%s', task.id);
+
+                $scope.submitting = 0;
             });
         };
     }]);
