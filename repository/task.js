@@ -261,11 +261,12 @@ var TaskRepository = Base.extend(function (user) {
                 return Task.find({ 
                     'audit.created_date' : {
                         $gt: new Date(taskCriteria.date)
-                    }
-                }, done);
+                    },
+                }, {}, {sort: { 'audit.created_date' : -1 }}, 
+                done);
             }
 
-            return Task.find(taskCriteria, done);
+            return Task.find(taskCriteria, {}, {sort: { 'audit.created_date' : -1 }}, done);
         },
 
         findProducerTasksByCondition: function(conditionId, done) {
