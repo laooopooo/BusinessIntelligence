@@ -352,7 +352,7 @@ taskControllers.controller('ViewTasksCtrl', ['$scope', 'TasksFactory',
         };
 
         $scope.pageChanged = function() {
-            $scope._loadTasks($scope._pagingOptions.pageSize, $scope._pagingOptions.currentPage, {});
+            $scope._loadTasks($scope._pagingOptions.pageSize, $scope._pagingOptions.currentPage, filter);
         };
 
         $scope._loadTasks = function(pageSize, page, filter) {
@@ -362,7 +362,7 @@ taskControllers.controller('ViewTasksCtrl', ['$scope', 'TasksFactory',
         };
 
         $scope.dateChanged = function() {
-            var filter = { date: $scope.dt.getTime() };
+            var filter = { dateStamp: $scope.dt.getTime() };
             $scope._loadTasks($scope._pagingOptions.pageSize, $scope._pagingOptions.currentPage, filter);
         };
 
