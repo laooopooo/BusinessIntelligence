@@ -321,12 +321,10 @@ taskControllers.controller('ViewTaskCtrl', ['$scope', 'TaskFactory', '$modal',
 taskControllers.controller('ViewTasksCtrl', ['$scope', 'TasksFactory',
     function ($scope, TasksFactory) {
 
+        $scope.filter = {};
+
         /* Datepicker stuff */
 
-        $scope.initDatePicker = function() {
-           $scope.dt = new Date();
-        };
-        
         $scope.open = function($event) {
             $event.preventDefault();
             $event.stopPropagation();
@@ -334,7 +332,7 @@ taskControllers.controller('ViewTasksCtrl', ['$scope', 'TasksFactory',
         };
 
         $scope.format = 'yyyy-MM-dd';
-        
+
         /* Paging stuff */
 
         $scope._pagingOptions = {
@@ -344,30 +342,29 @@ taskControllers.controller('ViewTasksCtrl', ['$scope', 'TasksFactory',
           pageCount: 5
         };
 
-        $scope._setPagingData = function(tasks, page, pageSize) {
-            var pagedTasks = tasks.slice((page - 1) * pageSize, page * pageSize);
-            $scope.pagetasks = pagedTasks;
+        $scope._setPagingData = function(tasks, page) {
+            var pageSize = $scope._pagingOptions.pageSize;
             $scope._pagingOptions.totalItems = tasks.length;
-            $scope._pagingOptions.pageCount = tasks.length % $scope._pagingOptions.pageSize;
+            $scope.pagetasks = tasks.slice((page - 1) * pageSize, page * pageSize);
+            $scope._pagingOptions.pageCount = tasks.length % pageSize;
         };
 
         $scope.pageChanged = function() {
-            $scope._loadTasks($scope._pagingOptions.pageSize, $scope._pagingOptions.currentPage, filter);
+            $scope._loadTasks($scope._pagingOptions.currentPage);
         };
 
-        $scope._loadTasks = function(pageSize, page, filter) {
-            TasksFactory.query(filter, function(result) {
-                return $scope._setPagingData(result, page, pageSize);
+        $scope._loadTasks = function(page) {
+            TasksFactory.query($scope.filter, function(result) {
+                return $scope._setPagingData(result, page);
             });
         };
 
         $scope.dateChanged = function() {
-            var filter = { dateStamp: $scope.dt.getTime() };
-            $scope._loadTasks($scope._pagingOptions.pageSize, $scope._pagingOptions.currentPage, filter);
+            $scope.filter.dateStamp = $scope.dt.getTime();
+            $scope._loadTasks($scope._pagingOptions.currentPage);
         };
 
-        $scope._loadTasks($scope._pagingOptions.pageSize, $scope._pagingOptions.currentPage, {});
-        $scope.initDatePicker();
+        $scope._loadTasks($scope._pagingOptions.currentPage);
     }]);
 
 
