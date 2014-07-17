@@ -325,10 +325,16 @@ taskControllers.controller('ViewTasksCtrl', ['$scope', 'TasksFactory',
 
         /* Datepicker stuff */
 
-        $scope.open = function($event) {
+        $scope.datepickers = {
+            dtPickerStartDate: false,
+            dtPickerEndDate: false
+        };
+
+        $scope.open = function($event, datePicker) {
             $event.preventDefault();
             $event.stopPropagation();
-            $scope.opened = true;
+            
+            $scope.datepickers[datePicker] = true;
         };
 
         $scope.format = 'yyyy-MM-dd';
@@ -339,7 +345,8 @@ taskControllers.controller('ViewTasksCtrl', ['$scope', 'TasksFactory',
           pageSize: 10,
           currentPage: 1,
           totalItems: 0,
-          pageCount: 5
+          pageCount: 5,
+          display: true
         };
 
         $scope._setPagingData = function(tasks, page) {
@@ -347,24 +354,26 @@ taskControllers.controller('ViewTasksCtrl', ['$scope', 'TasksFactory',
             $scope._pagingOptions.totalItems = tasks.length;
             $scope.pagetasks = tasks.slice((page - 1) * pageSize, page * pageSize);
             $scope._pagingOptions.pageCount = tasks.length % pageSize;
+            $scope._pagingOptions.display = tasks.length > 0;
         };
 
         $scope.pageChanged = function() {
-            $scope._loadTasks($scope._pagingOptions.currentPage);
+            $scope._loadTasks();
         };
 
-        $scope._loadTasks = function(page) {
+        $scope._loadTasks = function() {
             TasksFactory.query($scope.filter, function(result) {
-                return $scope._setPagingData(result, page);
+                return $scope._setPagingData(result, $scope._pagingOptions.currentPage);
             });
         };
 
         $scope.dateChanged = function() {
-            $scope.filter.dateStamp = $scope.dt.getTime();
-            $scope._loadTasks($scope._pagingOptions.currentPage);
+            $scope.filter.startDateStamp = ($scope.startDate) ? $scope.startDate.getTime() : 0;
+            $scope.filter.endDateStamp = ($scope.endDate || new Date()).setHours(23,59,59,999);
+            $scope._loadTasks();
         };
 
-        $scope._loadTasks($scope._pagingOptions.currentPage);
+        $scope._loadTasks();
     }]);
 
 

@@ -5,7 +5,7 @@ block task-content
         form(role="form")
             table.table.table-striped(style="margin-bottom: 0px")
                 thead 
-                    th(style="width:20%") DATE                     
+                    th(style="width:20%") DATE
                     th ADDED BY
                     th TASK NAME
                 tbody
@@ -13,10 +13,14 @@ block task-content
                         td
                             div
                                 p.input-group
-                                    input(type="text" datepicker-popup="{{format}}" ng-model="dt" is-open="opened" min-date="minDate" max-date="'2015-06-22'" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" ng-change="dateChanged()").form-control
+                                    input(name="dtPickerStartDate" type="text" datepicker-popup="{{format}}" ng-model="startDate" is-open="datepickers.dtPickerStartDate" min-date="minDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" ng-change="dateChanged()").form-control
                                     span.input-group-btn
-                                        button(type="button" class="btn btn-default" ng-click="open($event)") 
-                                            i.glyphicon.glyphicon-calendar                              
+                                        button(type="button" class="btn btn-default" ng-click="open($event, 'dtPickerStartDate')") 
+                                            i.glyphicon.glyphicon-calendar
+                                    input(name="dtPickerEndDate" type="text" datepicker-popup="{{format}}" ng-model="endDate" is-open="datepickers.dtPickerEndDate" min-date="minDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" ng-change="dateChanged()").form-control
+                                    span.input-group-btn
+                                        button(type="button" class="btn btn-default" ng-click="open($event, 'dtPickerEndDate')") 
+                                            i.glyphicon.glyphicon-calendar
                     tr(ng-repeat="task in pagetasks")
                         td {{ task.params.created_date | date:'yyyy-MM-dd' }}
                         td 
@@ -24,5 +28,5 @@ block task-content
                             |  {{task.params.owner.first_name}} {{task.params.owner.last_name}}
                         td
                             a(ng-href="/task/view/{{task.id}}") {{task.name}}
-            pagination(boundary-links="true" total-items="_pagingOptions.totalItems" max-size="_pagingOptions.pageCount" ng-model="_pagingOptions.currentPage" items-per-page="_pagingOptions.pageSize" ng-change="pageChanged()").pagination-sm
-            
+            span(ng-hide="_pagingOptions.display") There are no Tasks matching the defined criteria.
+            pagination(boundary-links="true" total-items="_pagingOptions.totalItems" max-size="_pagingOptions.pageCount" ng-model="_pagingOptions.currentPage" items-per-page="_pagingOptions.pageSize" ng-change="pageChanged()" ng-show="_pagingOptions.display").pagination-sm

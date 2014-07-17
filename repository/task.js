@@ -257,10 +257,10 @@ var TaskRepository = Base.extend(function (user) {
         },
 
         findAllTasks: function(taskCriteria, done) {
-            if (taskCriteria.date) {
+            if (taskCriteria.startDate && taskCriteria.endDate) {
                 return Task.find({ 
                     'audit.created_date' : {
-                        $gt: taskCriteria.date
+                        $gt: taskCriteria.startDate, $lt: taskCriteria.endDate
                     },
                 }, {}, {sort: { 'audit.created_date' : -1 }}, 
                 done);

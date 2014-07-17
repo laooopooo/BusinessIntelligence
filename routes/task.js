@@ -33,7 +33,7 @@ exports.register = function (app) {
 
     app.get('/task/all', route.private({ 'task': ['read']}), exports.viewTasks);
     app.get('/task/getTasks.json', route.private({ 'task': ['read']}), exports.getTasks);
-    app.get('/task/getTasks.json/:dateStamp', route.private({ 'task': ['read']}), exports.getTasks);
+    app.get('/task/getTasks.json/:startDateStamp/:endDateStamp', route.private({ 'task': ['read']}), exports.getTasks);
 
     return this;
 };
@@ -106,8 +106,12 @@ exports.getTask = function (req, res, next) {
 exports.getTasks = function (req, res, next) {
 
     var taskCriteria = {};
-    if (req.params.dateStamp) {
-        taskCriteria.date = new Date(req.params.dateStamp * 1);
+    if (req.params.startDateStamp) {
+        taskCriteria.startDate = new Date(req.params.startDateStamp * 1);
+    }
+    
+    if (req.params.endDateStamp) {
+        taskCriteria.endDate = new Date(req.params.endDateStamp * 1);
     }
 
     return new TaskService(req.user).findTasks(taskCriteria, function(task, params) {
