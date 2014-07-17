@@ -7,7 +7,7 @@ taskServices.factory('TaskFactory', ['$resource',
 
 taskServices.factory('TasksFactory', ['$resource',
     function ($resource) {
-        return $resource('/task/getTasks.json/:dateStamp');
+        return $resource('/task/getTasks.json/:startDateStamp/:endDateStamp');
     }]);
 
 taskServices.factory('PartnersFactory', ['$resource',
