@@ -12,15 +12,19 @@ block task-content
                     tr
                         td
                             div
-                                p.input-group
-                                    input(name="dtPickerStartDate" type="text" datepicker-popup="{{format}}" ng-model="startDate" is-open="datepickers.dtPickerStartDate" min-date="minDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" ng-change="dateChanged()").form-control
-                                    span.input-group-btn
-                                        button(type="button" class="btn btn-default" ng-click="open($event, 'dtPickerStartDate')") 
-                                            i.glyphicon.glyphicon-calendar
-                                    input(name="dtPickerEndDate" type="text" datepicker-popup="{{format}}" ng-model="endDate" is-open="datepickers.dtPickerEndDate" min-date="minDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" ng-change="dateChanged()").form-control
-                                    span.input-group-btn
-                                        button(type="button" class="btn btn-default" ng-click="open($event, 'dtPickerEndDate')") 
-                                            i.glyphicon.glyphicon-calendar
+                                p.input-group 
+                                    div(style="padding: 3px;")
+                                        span(style="float:left; padding:5px; width:40px;") From
+                                        input(name="dtPickerStartDate" type="text" datepicker-popup="{{format}}" ng-model="startDate" is-open="datepickers.dtPickerStartDate" min-date="minDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" ng-change="dateChanged()" style="width:50%; float:left;").form-control
+                                        span.input-group-btn
+                                            button(type="button" class="btn btn-default" ng-click="open($event, 'dtPickerStartDate')") 
+                                                i.glyphicon.glyphicon-calendar
+                                    div(style="padding: 3px;")
+                                        span(style="float:left; padding:5px; width:40px;") To
+                                        input(name="dtPickerEndDate" type="text" datepicker-popup="{{format}}" ng-model="endDate" is-open="datepickers.dtPickerEndDate" min-date="minDate" datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" ng-change="dateChanged()" style="width:50%; float:left;").form-control
+                                        span.input-group-btn
+                                            button(type="button" class="btn btn-default" ng-click="open($event, 'dtPickerEndDate')") 
+                                                i.glyphicon.glyphicon-calendar
                     tr(ng-repeat="task in pagetasks")
                         td {{ task.params.created_date | date:'yyyy-MM-dd' }}
                         td 
