@@ -129,3 +129,7 @@ a {
 .form-group-well {
     padding-bottom: 0px;
 }
+
+.align-middle {
+    vertical-align: middle !important;
+}
