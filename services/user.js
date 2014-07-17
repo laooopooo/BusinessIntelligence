@@ -154,6 +154,9 @@ var UserService = Base.extend(function () { })
                 if (err) return done(err);
                 
                 var userDtos = Enumerable.from(users)
+                    .orderBy(function(user) {
+                        return user.email;
+                    })
                     .select(function(user) {
                     return {
                         email: user.email,

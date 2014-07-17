@@ -8,7 +8,10 @@
                 p.form-control-static {{affect.task.name}}
             td
                 input.form-control(ng-model="affect.description")
-            td.col-td-min
+            td.col-td-min.align-middle
                 a(ng-click="removeAffect(affect)")
                     span.glyphicon.glyphicon-remove
-input.form-control(ng-model="condition.searchAffectTask", typeahead="task as task.name for task in searchTasks($viewValue)", typeahead-on-select="pushAffect($item)", placeholder="Search for task")
+.row
+    .col-md-6
+        input.form-control(ng-model="condition.searchAffectTask", typeahead="task as task.name for task in searchTasks($viewValue)", typeahead-on-select="pushAffect($item)", placeholder="Search for Task")
+    .col-md-6

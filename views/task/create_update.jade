@@ -72,7 +72,7 @@ block task-content
                                             a(ng-href="/task/view/{{producerTask.id}}", target="_blank", popover="{{producerTask.description}}", popover-trigger="mouseenter", popover-popup-delay="300", popover-placement="right") {{producerTask.name}}
                                     td
                                         span(popover="{{condition.note}}", popover-trigger="mouseenter", popover-popup-delay="300", popover-placement="right") {{trimText(condition.note, 25)}}
-                                    td.col-td-min
+                                    td.col-td-min.align-middle
                                         a(ng-click="task.removeCondition(input.conditions, condition)")
                                             span.glyphicon.glyphicon-remove
                     .form-group
@@ -127,7 +127,7 @@ block task-content
                                             a(ng-href="/task/view/{{consumerTask.id}}", target="_blank", popover="{{consumerTask.description}}", popover-trigger="mouseenter", popover-popup-delay="300", popover-placement="right") {{consumerTask.name}}
                                     td
                                         span(popover="{{condition.note}}", popover-trigger="mouseenter", popover-popup-delay="300", popover-placement="right") {{trimText(condition.note, 25)}}
-                                    td.col-td-min
+                                    td.col-td-min.align-middle
                                         a(ng-click="task.removeCondition(output.conditions, condition)")
                                             span.glyphicon.glyphicon-remove
                     .form-group
