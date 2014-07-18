@@ -349,12 +349,14 @@ taskControllers.controller('ViewTasksCtrl', ['$scope', 'TasksFactory',
           display: true
         };
 
-        $scope._setPagingData = function(tasks, page) {
+        $scope._setPagingData = function(tasks) {
+            var page = $scope._pagingOptions.currentPage;
             var pageSize = $scope._pagingOptions.pageSize;
-            $scope._pagingOptions.totalItems = tasks.length;
+            var tasksCount = tasks.length;
+            $scope._pagingOptions.totalItems = tasksCount;
             $scope.pagetasks = tasks.slice((page - 1) * pageSize, page * pageSize);
-            $scope._pagingOptions.pageCount = tasks.length / pageSize;
-            $scope._pagingOptions.display = tasks.length > 0;
+            $scope._pagingOptions.pageCount = Math.ceil(tasksCount / pageSize);
+            $scope._pagingOptions.display = tasksCount > pageSize;
         };
 
         $scope.pageChanged = function() {
@@ -363,13 +365,14 @@ taskControllers.controller('ViewTasksCtrl', ['$scope', 'TasksFactory',
 
         $scope._loadTasks = function() {
             TasksFactory.query($scope.filter, function(result) {
-                return $scope._setPagingData(result, $scope._pagingOptions.currentPage);
+                return $scope._setPagingData(result);
             });
         };
 
         $scope.dateChanged = function() {
             $scope.filter.startDateStamp = ($scope.startDate) ? $scope.startDate.getTime() : 0;
             $scope.filter.endDateStamp = ($scope.endDate || new Date()).setHours(23,59,59,999);
+            $scope._pagingOptions.currentPage = 1;
             $scope._loadTasks();
         };
 
