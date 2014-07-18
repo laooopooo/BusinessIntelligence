@@ -353,7 +353,7 @@ taskControllers.controller('ViewTasksCtrl', ['$scope', 'TasksFactory',
             var pageSize = $scope._pagingOptions.pageSize;
             $scope._pagingOptions.totalItems = tasks.length;
             $scope.pagetasks = tasks.slice((page - 1) * pageSize, page * pageSize);
-            $scope._pagingOptions.pageCount = tasks.length % pageSize;
+            $scope._pagingOptions.pageCount = tasks.length / pageSize;
             $scope._pagingOptions.display = tasks.length > 0;
         };
 
