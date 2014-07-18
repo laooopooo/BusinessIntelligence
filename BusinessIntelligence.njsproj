@@ -18,6 +18,9 @@
     <NodejsPort>3000</NodejsPort>
     <StartWebBrowser>True</StartWebBrowser>
     <LaunchUrl />
+    <EnableTypeScript>true</EnableTypeScript>
+    <TypeScriptSourceMap>true</TypeScriptSourceMap>
+    <TypeScriptModuleKind>CommonJS</TypeScriptModuleKind>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
@@ -74,6 +77,7 @@
     <Compile Include="services\user.js" />
     <Content Include="public\images\knowledgeBase48x48.png" />
     <Content Include="public\images\loader.gif" />
+    <Content Include="repository\group.js.map" />
     <Content Include="views\alert.jade" />
     <Content Include="views\context.jade" />
     <Content Include="views\footer.jade" />
@@ -139,6 +143,9 @@
     <Folder Include="views\task\" />
     <Folder Include="views\profile\" />
     <Folder Include="views\task\condition\" />
+  </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="repository\group.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />
