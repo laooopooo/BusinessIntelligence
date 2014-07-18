@@ -21,6 +21,7 @@ var UserRepository = klass(function () { })
             ///<param name="password">Unhashed password of a user</param>
             ///<param name="done">Done handler</param>
 
+            email = email.toLowerCase();
             User.findOne({
                 email: email
             }, function(err, user) {
@@ -90,7 +91,7 @@ var UserRepository = klass(function () { })
             ///<param name="done">Done callback</param>
 
             return User.findOne({
-                email: email,
+                email: email.toLowerCase(),
                 password: _hashPassword(password)
             }, done);
         },
