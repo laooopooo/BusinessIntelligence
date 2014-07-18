@@ -1,7 +1,8 @@
 ﻿var Base = require('./base'),
-    Permission = require('../models/permission');
+    Permission = require('../models/permission'),
+    klass = require('klass');
 
-var PermissionRepository = Base.extend(function () { })
+var PermissionRepository = klass(function () { })
     .methods({
         getByName: function(name, done) {
             ///<summary>Gets permission by name</summary>

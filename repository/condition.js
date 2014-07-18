@@ -5,9 +5,10 @@
     extend = require('extend'),
     obj = require('../modules/obj'),
     _ = require('lodash'),
-    async = require('async');
+    async = require('async'),
+    klass = require('klass');
 
-var ConditionRepository = Base.extend(function (user, repositories) {
+var ConditionRepository = klass(function (user, repositories) {
         this.user = user;
         this.repositories = repositories || {};
     })

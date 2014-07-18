@@ -1,11 +1,23 @@
 ﻿/// <reference path="../compiler/bi.d.ts" />
-var Base = require('./base'), Group = require('../models/group'), Permission = require('../models/permission');
+/// <reference path="./base.ts" />
+/// <reference path="../models/user.ts" />
+var __extends = this.__extends || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
+var Group = require('../models/group'), Permission = require('../models/permission');
 
-var GroupRepository = (function () {
-    function GroupRepository() {
+var BaseRepository = require('./base');
+
+var GroupRepository = (function (_super) {
+    __extends(GroupRepository, _super);
+    function GroupRepository(user) {
+        _super.call(this, user);
     }
     GroupRepository.prototype.getByName = function (name, done) {
-        return new GroupRepository().getByNames([name], done);
+        return this.getByNames([name], done);
     };
 
     GroupRepository.prototype.getByNames = function (names, done) {
@@ -24,7 +36,7 @@ var GroupRepository = (function () {
         }, done);
     };
     return GroupRepository;
-})();
+})(BaseRepository);
 
 module.exports = GroupRepository;
 //# sourceMappingURL=group.js.map

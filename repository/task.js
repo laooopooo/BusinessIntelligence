@@ -5,9 +5,10 @@
     Enumerable = require('linq'),
     async = require('async'),
     extend = require('extend'),
-    obj = require('../modules/obj');
+    obj = require('../modules/obj'),
+    klass = require('klass');
 
-var TaskRepository = Base.extend(function (user) {
+var TaskRepository = klass(function (user) {
         this.user = user;
     })
     .methods({

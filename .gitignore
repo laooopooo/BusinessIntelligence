@@ -6,3 +6,4 @@ uploads/*
 !uploads/unknown_user.png
 
 !.gitignore
+BusinessIntelligence.v11.suo

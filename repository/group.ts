@@ -1,14 +1,19 @@
 ﻿/// <reference path="../compiler/bi.d.ts" />
-var Base = require('./base'),
-    Group = require('../models/group'),
+/// <reference path="./base.ts" />
+/// <reference path="../models/user.ts" />
+
+var Group = require('../models/group'),
     Permission = require('../models/permission');
 
-class GroupRepository {
-    constructor() {
+import BaseRepository = require('./base');
+
+class GroupRepository extends BaseRepository {
+    constructor(user: User) {
+        super(user);
     }
 
     getByName(name, done: Function) {
-        return new GroupRepository().getByNames([name], done);
+        return this.getByNames([name], done);
     }
 
     getByNames(names, done) {

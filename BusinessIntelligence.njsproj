@@ -38,7 +38,6 @@
     <Compile Include="models\permission.js" />
     <Compile Include="models\task.js" />
     <Compile Include="models\task.snapshot.js" />
-    <Compile Include="models\user.js" />
     <Compile Include="models\user.snapshot.js" />
     <Compile Include="modules\obj.js" />
     <Compile Include="public\js\components\bootstrap.file-input.js" />
@@ -53,9 +52,7 @@
     <Compile Include="public\js\task.controllers.js" />
     <Compile Include="public\js\task.services.js" />
     <Compile Include="repository\condition.js" />
-    <Compile Include="repository\group.js" />
     <Compile Include="repository\permission.js" />
-    <Compile Include="repository\base.js" />
     <Compile Include="repository\scripts\setup.mongodb.js" />
     <Compile Include="repository\scripts\setup.mongodb.spec.js" />
     <Compile Include="repository\task.js" />
@@ -77,7 +74,6 @@
     <Compile Include="services\user.js" />
     <Content Include="public\images\knowledgeBase48x48.png" />
     <Content Include="public\images\loader.gif" />
-    <Content Include="repository\group.js.map" />
     <Content Include="views\alert.jade" />
     <Content Include="views\context.jade" />
     <Content Include="views\footer.jade" />
@@ -145,7 +141,9 @@
     <Folder Include="views\task\condition\" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="models\user.ts" />
     <TypeScriptCompile Include="repository\group.ts" />
+    <TypeScriptCompile Include="repository\base.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />

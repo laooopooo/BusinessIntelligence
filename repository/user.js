@@ -2,9 +2,10 @@
     crypto = require("crypto-js"),
     extend = require('extend'),
     User = require('../models/user'),
-    Base = require('./base');
+    Base = require('./base'),
+    klass = require('klass');
 
-var UserRepository = Base.extend(function () { })
+var UserRepository = klass(function () { })
     .methods({
         getById: function(id, done) {
             ///<summary>Gets user by identifier</summary>

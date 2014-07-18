@@ -1,5 +1,9 @@
 ﻿/// <reference path="../compiler/bi.d.ts" />
-var util = require('util'), mongoose = require('mongoose'), Schema = mongoose.Schema, logger = require('../logger').getLogger('user');
+
+var util = require('util'),
+    mongoose = require('mongoose'),
+    Schema = mongoose.Schema,
+    logger = require('../logger').getLogger('user');
 
 var userSchema = new Schema({
     email: { type: String, required: 1, index: { unique: 1 } },
@@ -19,13 +23,15 @@ var userSchema = new Schema({
     }
 });
 
-userSchema.methods.getIdentity = function () {
+userSchema.methods.getIdentity = function() {
     ///<summary>Gets identity information</summary>
+
     return util.format('%s\\%s %s', this.email, this.first_name || '', this.last_name || '');
 };
 
-userSchema.methods.toDto = function () {
+userSchema.methods.toDto = function() {
     ///<summary>Converts to DTO</summary>
+    
     return {
         id: this.id,
         email: this.email,
@@ -37,6 +43,9 @@ userSchema.methods.toDto = function () {
     };
 };
 
+interface User {
+    
+}
+
 var User = mongoose.model('User', userSchema);
-module.exports = User;
-//# sourceMappingURL=user.js.map
+export = User;
