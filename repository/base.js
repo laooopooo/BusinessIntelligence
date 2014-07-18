@@ -1,6 +1,4 @@
-﻿/// <reference path="../compiler/bi.d.ts" />
-/// <reference path="../models/user.ts" />
-var BaseRepository = (function () {
+﻿var BaseRepository = (function () {
     function BaseRepository(user) {
         this.user = user;
     }

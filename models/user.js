@@ -1,4 +1,4 @@
-﻿/// <reference path="../compiler/bi.d.ts" />
+﻿/// <reference path="../lib.d.ts" />
 var util = require('util'), mongoose = require('mongoose'), Schema = mongoose.Schema, logger = require('../logger').getLogger('user');
 
 var userSchema = new Schema({

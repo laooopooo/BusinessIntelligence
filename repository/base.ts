@@ -1,9 +1,6 @@
-﻿/// <reference path="../compiler/bi.d.ts" />
-/// <reference path="../models/user.ts" />
-
-class BaseRepository {
-    user: User;
-    constructor(user: User) {
+﻿class BaseRepository {
+    user: IUser;
+    constructor(user: IUser) {
         this.user = user;
     }
 }

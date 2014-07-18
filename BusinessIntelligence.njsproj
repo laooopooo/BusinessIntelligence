@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{58f753dd-8c2e-4cb7-bcfd-90511afed7ae}</ProjectGuid>
     <ProjectHome />
-    <ProjectView>ShowAllFiles</ProjectView>
+    <ProjectView>ProjectFiles</ProjectView>
     <StartupFile>app.js</StartupFile>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -26,6 +26,7 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
     <Content Include="info.txt" />
+    <Content Include="lib.d.ts" />
     <Content Include="package.json" />
     <Compile Include="app.js" />
     <Compile Include="config.js" />
@@ -56,7 +57,6 @@
     <Compile Include="repository\scripts\setup.mongodb.js" />
     <Compile Include="repository\scripts\setup.mongodb.spec.js" />
     <Compile Include="repository\task.js" />
-    <Compile Include="repository\user.js" />
     <Compile Include="repository\user.snapshot.js" />
     <Compile Include="routes\index.js" />
     <Compile Include="routes\management.js" />
@@ -141,9 +141,12 @@
     <Folder Include="views\task\condition\" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="models\audit.d.ts" />
+    <TypeScriptCompile Include="models\user.d.ts" />
     <TypeScriptCompile Include="models\user.ts" />
     <TypeScriptCompile Include="repository\group.ts" />
     <TypeScriptCompile Include="repository\base.ts" />
+    <TypeScriptCompile Include="repository\user.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />

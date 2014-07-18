@@ -1,22 +1,19 @@
-﻿/// <reference path="../compiler/bi.d.ts" />
-/// <reference path="./base.ts" />
-/// <reference path="../models/user.ts" />
+﻿/// <reference path="../lib.d.ts" />
 
-var Group = require('../models/group'),
-    Permission = require('../models/permission');
+var Group = require('../models/group');
 
 import BaseRepository = require('./base');
 
 class GroupRepository extends BaseRepository {
-    constructor(user: User) {
+    constructor(user: IUser) {
         super(user);
     }
 
-    getByName(name, done: Function) {
+    getByName(name: string, done: Function) {
         return this.getByNames([name], done);
     }
 
-    getByNames(names, done) {
+    getByNames(names: string[], done: Function) {
         return Group.findOne({
             name: {
                 $in: names
@@ -24,7 +21,7 @@ class GroupRepository extends BaseRepository {
         }, done);
     }
 
-    getByIds(ids, done: Function) {
+    getByIds(ids: string[], done: Function) {
         return Group.find({
             _id: {
                 $in: ids

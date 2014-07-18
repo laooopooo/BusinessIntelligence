@@ -1,48 +1,44 @@
-﻿var __extends = this.__extends || function (d, b) {
-    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-    function __() { this.constructor = d; }
-    __.prototype = b.prototype;
-    d.prototype = new __();
-};
-var config = require('../config'), crypto = require("crypto-js"), extend = require('extend'), User = require('../models/user');
+﻿var config = require('../config'),
+    crypto = require("crypto-js"),
+    extend = require('extend'),
+    User = require('../models/user');
 
-var BaseRepository = require('./base');
+import BaseRepository = require('./base');
 
-var UserRepository = (function (_super) {
-    __extends(UserRepository, _super);
-    function UserRepository(user) {
-        _super.call(this, user);
+class UserRepository extends BaseRepository {
+    constructor(user: IUser) {
+        super(user);
     }
-    UserRepository.prototype.getById = function (id, done) {
-        return User.findById(id, done);
-    };
 
-    UserRepository.prototype.create = function (email, password, done) {
-        var _this = this;
+    getById(id: string, done: Function) {
+        return User.findById(id, done);
+    }
+
+    create(email: string, password: string, done: Function) {
         email = email.toLowerCase();
 
         return User.findOne({
             email: email
-        }, function (err, user) {
+        }, (err, user) => {
             if (user) {
                 return done('The user is already exists.', null);
             }
 
             user = new User({
                 email: email,
-                password: _this._hashPassword(password),
+                password: this._hashPassword(password),
                 avatar: 'uploads/unknown_user.png'
             });
 
-            return user.save(function (err) {
+            return user.save((err) => {
                 return done(err, extend(user, {
                     password: ''
                 }));
             });
         });
-    };
+    }
 
-    UserRepository.prototype.update = function (user, done) {
+    update(user: IUser, done: Function) {
         var set = {
             groups: user.groups,
             first_name: user.first_name,
@@ -62,12 +58,13 @@ var UserRepository = (function (_super) {
         }
 
         User.findByIdAndUpdate(user.id, {
-            $set: set
-        }, done);
-    };
+                $set: set
+            }, done);
+    }
 
-    UserRepository.prototype.updateMetrics = function (user, done) {
+    updateMetrics(user: IUser, done: Function) {
         ///<summary>Updates metrics</summary>
+
         return User.findByIdAndUpdate(user.id, {
             $set: {
                 metrics: {
@@ -76,24 +73,25 @@ var UserRepository = (function (_super) {
                 }
             }
         }, done);
-    };
+    }
 
-    UserRepository.prototype.findByEmailPassword = function (email, password, done) {
+    findByEmailPassword(email: string, password: string, done: Function) {
         return User.findOne({
             email: email.toLowerCase(),
             password: this._hashPassword(password)
         }, done);
-    };
+    }
 
-    UserRepository.prototype.getAll = function (done) {
-        return User.find({}).populate('groups').sort({ email: 1 }).exec(done);
-    };
+    getAll(done: Function) {
+        return User.find({})
+            .populate('groups')
+            .sort({ email: 1 })
+            .exec(done);
+    }
 
-    UserRepository.prototype._hashPassword = function (text) {
+    _hashPassword(text: string) {
         return crypto.SHA256(text + config.hash.salt).toString(crypto.enc.Hex);
-    };
-    return UserRepository;
-})(BaseRepository);
+    }
+}
 
-module.exports = UserRepository;
-//# sourceMappingURL=user.js.map
+export = UserRepository;

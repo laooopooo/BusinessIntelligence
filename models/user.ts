@@ -1,4 +1,4 @@
-﻿/// <reference path="../compiler/bi.d.ts" />
+﻿/// <reference path="../lib.d.ts" />
 
 var util = require('util'),
     mongoose = require('mongoose'),
@@ -42,10 +42,6 @@ userSchema.methods.toDto = function() {
         metrics: this.metrics
     };
 };
-
-interface User {
-    
-}
 
 var User = mongoose.model('User', userSchema);
 export = User;
