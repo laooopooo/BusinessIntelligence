@@ -311,7 +311,7 @@ var TaskRepository = klass(function (user) {
 
                 var newestTaskSnapshot = TaskSnapshot.create(task);
 
-                if (!oldestTaskSnapshot || !Util.Entity.isEquals(oldestTaskSnapshot.toDto(), newestTaskSnapshot.toDto())) {
+                if (!oldestTaskSnapshot || !Util.isEquals(oldestTaskSnapshot.toDto(), newestTaskSnapshot.toDto())) {
                     return newestTaskSnapshot.save(done);
                 } else {
                     return done();

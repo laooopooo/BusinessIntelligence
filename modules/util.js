@@ -1,8 +1,5 @@
-﻿var Entity;
-(function (Entity) {
-    function isEquals(a, b) {
-        return JSON.stringify(a) === JSON.stringify(b);
-    }
-    Entity.isEquals = isEquals;
-})(Entity || (Entity = {}));
+﻿function isEquals(a, b) {
+    return JSON.stringify(a) === JSON.stringify(b);
+}
+exports.isEquals = isEquals;
 //# sourceMappingURL=util.js.map

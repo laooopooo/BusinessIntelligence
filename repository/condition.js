@@ -118,7 +118,7 @@ var ConditionRepository = klass(function (user, repositories) {
 
                 var newestConditionSnapshot = ConditionSnapshot.create(condition);
 
-                if (!oldestConditionSnapshot || !Util.Entity.isEquals(oldestConditionSnapshot.toDto(), newestConditionSnapshot.toDto())) {
+                if (!oldestConditionSnapshot || !Util.isEquals(oldestConditionSnapshot.toDto(), newestConditionSnapshot.toDto())) {
                     return newestConditionSnapshot.save(done);
                 } else {
                     return done();
