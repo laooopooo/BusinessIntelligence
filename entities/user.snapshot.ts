@@ -16,10 +16,7 @@ var userSnapshotSchema = new Schema({
     }
 });
 
-userSnapshotSchema.statics.create = function(user) {
-    ///<summary>Creates from User</summary>
-    ///<param name="user">User</param>
-    
+userSnapshotSchema.statics.create = (user: User) => {
     return new UserSnapshot(extend({}, {
         userId: user.id,
         email: user.email,
@@ -32,4 +29,5 @@ userSnapshotSchema.statics.create = function(user) {
     }));
 };
 
-module.exports = UserSnapshot = mongoose.model('UserSnapshot', userSnapshotSchema);
+var UserSnapshot = <{ new (User): UserSnapshot }>mongoose.model('UserSnapshot', userSnapshotSchema);
+export = UserSnapshot;

@@ -1,12 +1,12 @@
 ﻿var config = require('../config'),
     crypto = require("crypto-js"),
     extend = require('extend'),
-    User = require('../models/user');
+    User = require('../entities/user');
 
 import BaseRepository = require('./base');
 
 class UserRepository extends BaseRepository {
-    constructor(user: IUser) {
+    constructor(user: User) {
         super(user);
     }
 
@@ -38,7 +38,7 @@ class UserRepository extends BaseRepository {
         });
     }
 
-    update(user: IUser, done: Function) {
+    update(user: User, done: Function) {
         var set = {
             groups: user.groups,
             first_name: user.first_name,
@@ -59,10 +59,10 @@ class UserRepository extends BaseRepository {
 
         User.findByIdAndUpdate(user.id, {
                 $set: set
-            }, done);
+        }, done);
     }
 
-    updateMetrics(user: IUser, done: Function) {
+    updateMetrics(user: User, done: Function) {
         ///<summary>Updates metrics</summary>
 
         return User.findByIdAndUpdate(user.id, {

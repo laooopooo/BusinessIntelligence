@@ -1,6 +1,6 @@
 ﻿var Base = require('./base'),
-    Task = require('../models/task'),
-    TaskSnapshot = require('../models/task.snapshot'),
+    Task = require('../entities/task'),
+    TaskSnapshot = require('../entities/task.snapshot'),
     ConditionRepository = require('./condition'),
     Enumerable = require('linq'),
     async = require('async'),

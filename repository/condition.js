@@ -1,6 +1,6 @@
 ﻿var Base = require('./base'),
-    Condition = require('../models/condition'),
-    ConditionSnapshot = require('../models/condition.snapshot'),
+    Condition = require('../entities/condition'),
+    ConditionSnapshot = require('../entities/condition.snapshot'),
     Enumerable = require('linq'),
     extend = require('extend'),
     obj = require('../modules/obj'),

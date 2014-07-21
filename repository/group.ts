@@ -1,11 +1,9 @@
-﻿/// <reference path="../lib.d.ts" />
-
-var Group = require('../models/group');
+﻿var Group = require('../entities/group');
 
 import BaseRepository = require('./base');
 
 class GroupRepository extends BaseRepository {
-    constructor(user: IUser) {
+    constructor(user: User) {
         super(user);
     }
 

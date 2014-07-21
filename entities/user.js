@@ -1,5 +1,5 @@
 ﻿/// <reference path="../lib.d.ts" />
-var util = require('util'), mongoose = require('mongoose'), Schema = mongoose.Schema, logger = require('../logger').getLogger('user');
+var util = require('util'), mongoose = require('mongoose'), Schema = mongoose.Schema;
 
 var userSchema = new Schema({
     email: { type: String, required: 1, index: { unique: 1 } },
@@ -19,13 +19,7 @@ var userSchema = new Schema({
     }
 });
 
-userSchema.methods.getIdentity = function () {
-    ///<summary>Gets identity information</summary>
-    return util.format('%s\\%s %s', this.email, this.first_name || '', this.last_name || '');
-};
-
 userSchema.methods.toDto = function () {
-    ///<summary>Converts to DTO</summary>
     return {
         id: this.id,
         email: this.email,

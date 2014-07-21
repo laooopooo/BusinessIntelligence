@@ -1,6 +1,4 @@
-﻿var extend = require('extend'),
-    mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+﻿var extend = require('extend'), mongoose = require('mongoose'), Schema = mongoose.Schema;
 
 var Affect = new Schema({
     task: { type: Schema.Types.ObjectId, ref: 'Task', index: 1 },
@@ -35,7 +33,7 @@ var conditionSnapshotSchema = new Schema({
     }
 });
 
-conditionSnapshotSchema.statics.create = function(condition) {
+conditionSnapshotSchema.statics.create = function (condition) {
     return new ConditionSnapshot({
         conditionId: condition.id,
         name: condition.name,
@@ -50,9 +48,7 @@ conditionSnapshotSchema.statics.create = function(condition) {
     });
 };
 
-conditionSnapshotSchema.methods.toDto = function() {
-    ///<summary>Converts to DTO</summary>
-    
+conditionSnapshotSchema.methods.toDto = function () {
     return {
         conditionId: this.conditionId,
         name: this.name,
@@ -66,4 +62,6 @@ conditionSnapshotSchema.methods.toDto = function() {
     };
 };
 
-module.exports = ConditionSnapshot = mongoose.model('ConditionSnapshot', conditionSnapshotSchema);
+var ConditionSnapshot = mongoose.model('ConditionSnapshot', conditionSnapshotSchema);
+module.exports = ConditionSnapshot;
+//# sourceMappingURL=condition.snapshot.js.map

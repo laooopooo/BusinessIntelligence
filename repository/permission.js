@@ -1,5 +1,5 @@
 ﻿var Base = require('./base'),
-    Permission = require('../models/permission'),
+    Permission = require('../entities/permission'),
     klass = require('klass');
 
 var PermissionRepository = klass(function () { })

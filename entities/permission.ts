@@ -6,4 +6,5 @@ var permissionSchema = new Schema({
     description: { type: String, default: '' }
 });
 
-module.exports = Permission = mongoose.model('Permission', permissionSchema);
+var Permission = <Permission>mongoose.model('Permission', permissionSchema);
+export = Permission;

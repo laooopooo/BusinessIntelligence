@@ -1,5 +1,5 @@
-﻿var User = require('../models/user'),
-    UserSnapshot = require('../models/user.snapshot'),
+﻿var User = require('../entities/user'),
+    UserSnapshot = require('../entities/user.snapshot'),
     UserRepository = require('../repository/user'),
     UserSnapshotRepository = require('../repository/user.snapshot'),
     GroupRepository = require('../repository/group'),

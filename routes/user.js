@@ -1,5 +1,5 @@
 ﻿var UserService = require('../services/user'),
-    User = require('../models/user'),
+    User = require('../entities/user'),
     route = require('./route'),
     extend = require('extend');
 

@@ -2,6 +2,14 @@
     mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
+var Input = new Schema({
+    conditions: [{ type: Schema.Types.ObjectId, ref: 'Condition' }]
+});
+
+var Output = new Schema({
+    conditions: [{ type: Schema.Types.ObjectId, ref: 'Condition' }]
+});
+
 var taskSnapshotSchema = new Schema({
     taskId: { type: Schema.Types.ObjectId, required: 1, index: 1 },
     name: String,
@@ -9,16 +17,10 @@ var taskSnapshotSchema = new Schema({
     external_id: String,
     availability: {
         availability_type: Number,
-        partners: [ { type: String } ]
+        partners: [{ type: String }]
     },
-    inputs: [{
-        _id: Schema.Types.ObjectId,
-        conditions: [ { type: Schema.Types.ObjectId, ref: 'Condition'} ]
-    }],
-    outputs: [{
-        _id: Schema.Types.ObjectId,
-        conditions: [ { type: Schema.Types.ObjectId, ref: 'Condition'} ]
-    }],
+    inputs: [Input],
+    outputs: [Output],
     audit: {
         created_by: { type: Schema.Types.ObjectId, ref: 'User' },
         created_date: Date,
@@ -28,9 +30,7 @@ var taskSnapshotSchema = new Schema({
     }
 });
 
-taskSnapshotSchema.statics.create = function(task) {
-    ///<summary>Creates from Task</summary>
-
+taskSnapshotSchema.statics.create = (task: Task) => {
     return new TaskSnapshot({
         taskId: task.id,
         name: task.name,
@@ -43,8 +43,7 @@ taskSnapshotSchema.statics.create = function(task) {
     });
 };
 
-taskSnapshotSchema.methods.toDto = function() {
-    ///<summary>Converts to DTO</summary>
+taskSnapshotSchema.methods.toDto = function () {
     return {
         taskId: this.taskId,
         name: this.name,
@@ -59,4 +58,5 @@ taskSnapshotSchema.methods.toDto = function() {
     };
 };
 
-module.exports = TaskSnapshot = mongoose.model('TaskSnapshot', taskSnapshotSchema);
+var TaskSnapshot = <{ new (Task): TaskSnapshot }>mongoose.model('TaskSnapshot', taskSnapshotSchema);
+export = TaskSnapshot;

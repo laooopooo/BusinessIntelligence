@@ -33,13 +33,6 @@
     <Content Include=".git\ms-persist.xml" />
     <Compile Include="gruntfile.js" />
     <Compile Include="logger.js" />
-    <Compile Include="models\condition.js" />
-    <Compile Include="models\condition.snapshot.js" />
-    <Compile Include="models\group.js" />
-    <Compile Include="models\permission.js" />
-    <Compile Include="models\task.js" />
-    <Compile Include="models\task.snapshot.js" />
-    <Compile Include="models\user.snapshot.js" />
     <Compile Include="modules\obj.js" />
     <Compile Include="public\js\components\bootstrap.file-input.js" />
     <Compile Include="public\js\components\linq.min.js" />
@@ -119,7 +112,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".git" />
-    <Folder Include="models" />
+    <Folder Include="entities\" />
     <Folder Include="modules\" />
     <Folder Include="public\js\components\" />
     <Folder Include="repository\scripts\" />
@@ -141,9 +134,14 @@
     <Folder Include="views\task\condition\" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="models\audit.d.ts" />
-    <TypeScriptCompile Include="models\user.d.ts" />
-    <TypeScriptCompile Include="models\user.ts" />
+    <TypeScriptCompile Include="entities\condition.snapshot.ts" />
+    <TypeScriptCompile Include="entities\condition.ts" />
+    <TypeScriptCompile Include="entities\group.ts" />
+    <TypeScriptCompile Include="entities\permission.ts" />
+    <TypeScriptCompile Include="entities\task.snapshot.ts" />
+    <TypeScriptCompile Include="entities\user.snapshot.ts" />
+    <TypeScriptCompile Include="entities\task.ts" />
+    <TypeScriptCompile Include="entities\user.ts" />
     <TypeScriptCompile Include="repository\group.ts" />
     <TypeScriptCompile Include="repository\base.ts" />
     <TypeScriptCompile Include="repository\user.ts" />

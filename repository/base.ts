@@ -1,6 +1,6 @@
 ﻿class BaseRepository {
-    user: IUser;
-    constructor(user: IUser) {
+    user: User;
+    constructor(user: User) {
         this.user = user;
     }
 }

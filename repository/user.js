@@ -4,7 +4,7 @@
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-var config = require('../config'), crypto = require("crypto-js"), extend = require('extend'), User = require('../models/user');
+var config = require('../config'), crypto = require("crypto-js"), extend = require('extend'), User = require('../entities/user');
 
 var BaseRepository = require('./base');
 

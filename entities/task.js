@@ -1,21 +1,20 @@
-﻿var mongoose = require('mongoose'),
-    Schema = mongoose.Schema;
+﻿var mongoose = require('mongoose'), Schema = mongoose.Schema;
 
 var Input = new Schema({
-    conditions: [ { type: Schema.Types.ObjectId, ref: 'Condition', index: 1 } ]
+    conditions: [{ type: Schema.Types.ObjectId, ref: 'Condition', index: 1 }]
 });
 
 var Output = new Schema({
-    conditions: [ { type: Schema.Types.ObjectId, ref: 'Condition', index: 1 } ]
+    conditions: [{ type: Schema.Types.ObjectId, ref: 'Condition', index: 1 }]
 });
 
 var taskSchema = new Schema({
     name: { type: String, required: 1, index: 1 },
     description: { type: String, index: 1, default: '' },
-    external_id: { type: String, index: 1},
+    external_id: { type: String, index: 1 },
     availability: {
         availability_type: Number,
-        partners: [ { type: String, index: 1 } ]
+        partners: [{ type: String, index: 1 }]
     },
     inputs: [Input],
     outputs: [Output],
@@ -28,8 +27,7 @@ var taskSchema = new Schema({
     }
 });
 
-taskSchema.methods.toDto = function() {
-    ///<summary>Converts to DTO</summary>
+taskSchema.methods.toDto = function () {
     return {
         id: this.id,
         name: this.name,
@@ -37,9 +35,11 @@ taskSchema.methods.toDto = function() {
         external_id: this.external_id,
         availability: {
             availability_type: this.availability.availability_type,
-            partners: this.availability.partners,
+            partners: this.availability.partners
         }
     };
 };
 
-module.exports = Task = mongoose.model('Task', taskSchema);
+var Task = mongoose.model('Task', taskSchema);
+module.exports = Task;
+//# sourceMappingURL=task.js.map

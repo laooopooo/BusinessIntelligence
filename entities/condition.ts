@@ -1,6 +1,5 @@
 ﻿var mongoose = require('mongoose'),
-    Schema = mongoose.Schema,
-    Enumerable = require('linq');
+    Schema = mongoose.Schema;
 
 var Affect = new Schema({
     task: { type: Schema.Types.ObjectId, ref: 'Task', index: 1 },
@@ -8,14 +7,14 @@ var Affect = new Schema({
 });
 
 var conditionSchema = new Schema({
-    name: { type: String, required: 1, index: 1},
+    name: { type: String, required: 1, index: 1 },
     condition_type: { type: String, required: 1 },
     setting: {
         name: { type: String, index: 1 },
         level: String,
         value: { type: String, index: 1 }
     },
-    description: { type: String, index: 1},
+    description: { type: String, index: 1 },
     ui: {
         input: [{ type: String, index: 1, default: '' }],
         output: [{ type: String, index: 1, default: '' }]
@@ -35,9 +34,7 @@ var conditionSchema = new Schema({
     }
 });
 
-conditionSchema.methods.toDto = function() {
-    ///<summary>Converts to DTO</summary>
-    
+conditionSchema.methods.toDto = function () {
     return {
         id: this.id,
         name: this.name,
@@ -51,4 +48,5 @@ conditionSchema.methods.toDto = function() {
     };
 };
 
-module.exports = Condition = mongoose.model('Condition', conditionSchema);
+var Condition = <Condition>mongoose.model('Condition', conditionSchema);
+export = Condition;
