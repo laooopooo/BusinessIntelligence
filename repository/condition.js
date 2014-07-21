@@ -3,7 +3,7 @@
     ConditionSnapshot = require('../entities/condition.snapshot'),
     Enumerable = require('linq'),
     extend = require('extend'),
-    obj = require('../modules/obj'),
+    Util = require('../modules/util'),
     _ = require('lodash'),
     async = require('async'),
     klass = require('klass');
@@ -118,7 +118,7 @@ var ConditionRepository = klass(function (user, repositories) {
 
                 var newestConditionSnapshot = ConditionSnapshot.create(condition);
 
-                if (!oldestConditionSnapshot || !obj.isEqual(oldestConditionSnapshot.toDto(), newestConditionSnapshot.toDto())) {
+                if (!oldestConditionSnapshot || !Util.Entity.isEquals(oldestConditionSnapshot.toDto(), newestConditionSnapshot.toDto())) {
                     return newestConditionSnapshot.save(done);
                 } else {
                     return done();

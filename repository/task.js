@@ -5,7 +5,7 @@
     Enumerable = require('linq'),
     async = require('async'),
     extend = require('extend'),
-    obj = require('../modules/obj'),
+    Util = require('../modules/util'),
     klass = require('klass');
 
 var TaskRepository = klass(function (user) {
@@ -311,7 +311,7 @@ var TaskRepository = klass(function (user) {
 
                 var newestTaskSnapshot = TaskSnapshot.create(task);
 
-                if (!oldestTaskSnapshot || !obj.isEqual(oldestTaskSnapshot.toDto(), newestTaskSnapshot.toDto())) {
+                if (!oldestTaskSnapshot || !Util.Entity.isEquals(oldestTaskSnapshot.toDto(), newestTaskSnapshot.toDto())) {
                     return newestTaskSnapshot.save(done);
                 } else {
                     return done();

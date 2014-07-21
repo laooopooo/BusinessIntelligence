@@ -33,7 +33,6 @@
     <Content Include=".git\ms-persist.xml" />
     <Compile Include="gruntfile.js" />
     <Compile Include="logger.js" />
-    <Compile Include="modules\obj.js" />
     <Compile Include="public\js\components\bootstrap.file-input.js" />
     <Compile Include="public\js\components\linq.min.js" />
     <Compile Include="public\js\components\objectId.js" />
@@ -142,6 +141,7 @@
     <TypeScriptCompile Include="entities\user.snapshot.ts" />
     <TypeScriptCompile Include="entities\task.ts" />
     <TypeScriptCompile Include="entities\user.ts" />
+    <TypeScriptCompile Include="modules\util.ts" />
     <TypeScriptCompile Include="repository\group.ts" />
     <TypeScriptCompile Include="repository\base.ts" />
     <TypeScriptCompile Include="repository\user.ts" />
