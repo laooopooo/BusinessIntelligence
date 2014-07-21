@@ -1,0 +1,18 @@
+﻿.datePickerContainer {
+    padding: 5px;
+}
+
+.datePickerText {
+    float:left; 
+    padding:5px; 
+    width:50px;
+}
+
+.datePickerInput {
+    float:left;
+    width:120px; 
+}
+
+.table {
+    margin-bottom: 0px;
+}
