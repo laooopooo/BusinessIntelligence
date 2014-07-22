@@ -1,5 +1,5 @@
-﻿var Task = require('../entities/task'),
-    Condition = require('../entities/condition'),
+﻿var Task = require('../models/task'),
+    Condition = require('../models/condition'),
     ConditionRepository = require('../repository/condition'),
     UserRepository = require( '../repository/user' );
     TaskRepository = require('../repository/task'),

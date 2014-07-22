@@ -1,5 +1,4 @@
-﻿var Group = require('../entities/group');
-
+﻿import Group = require('../models/group');
 import BaseRepository = require('./base');
 
 class GroupRepository extends BaseRepository {
@@ -7,11 +6,11 @@ class GroupRepository extends BaseRepository {
         super(user);
     }
 
-    getByName(name: string, done: Function) {
+    getByName(name: string, done: ICallback) {
         return this.getByNames([name], done);
     }
 
-    getByNames(names: string[], done: Function) {
+    getByNames(names: string[], done: ICallback) {
         return Group.findOne({
             name: {
                 $in: names
@@ -19,7 +18,7 @@ class GroupRepository extends BaseRepository {
         }, done);
     }
 
-    getByIds(ids: string[], done: Function) {
+    getByIds(ids: string[], done: ICallback) {
         return Group.find({
             _id: {
                 $in: ids

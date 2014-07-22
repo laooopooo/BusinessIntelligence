@@ -1,4 +1,18 @@
 /// <reference path="typescript/express/express.d.ts" />
+/// <reference path="typescript/async/async.d.ts" />
+/// <reference path="typescript/linq/linq.d.ts" />
+/// <reference path="typescript/lodash/lodash.d.ts" />
+/// <reference path="typescript/mongoose/mongoose.d.ts" />
+
+
+interface ICallback{
+    (error: any, item?: any): void;
+}
+
+interface IMongooseSearchable{
+    findOne(item:any, callback:ICallback) : void;
+    find(item:any, callback:ICallback) : void;
+}
 
 interface Transferable {
     toDto(): any;
@@ -9,12 +23,12 @@ interface Auditable {
     revision: number;
 }
 
-interface Entity extends Transferable {
+interface Model extends Transferable, IMongooseSearchable {
     id: string;
     audit: Auditable;
 }
 
-interface User extends Entity {
+interface User extends Model {
     email: string;
     password: string;
     first_name: string;
@@ -37,7 +51,7 @@ interface ConditionAffect {
     description: string;
 }
 
-interface Condition extends Entity {
+interface Condition extends Model {
     name: string;
     condition_type: string;
     setting: {
@@ -62,11 +76,11 @@ interface ConditionSnapshot extends Condition {
     conditionId: string;
 }
 
-interface Group extends Entity {
+interface Group extends Model {
     name: string;
 }
 
-interface Permission extends Entity {
+interface Permission extends Model {
     name: string;
 }
 
@@ -78,7 +92,7 @@ interface TaskOutput {
     conditions: string[];
 }
 
-interface Task extends Entity {
+interface Task extends Model {
     name: string;
     description: string;
     external_id: string;

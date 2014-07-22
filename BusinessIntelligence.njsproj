@@ -44,7 +44,6 @@
     <Compile Include="public\js\search.services.js" />
     <Compile Include="public\js\task.controllers.js" />
     <Compile Include="public\js\task.services.js" />
-    <Compile Include="repository\condition.js" />
     <Compile Include="repository\permission.js" />
     <Compile Include="repository\scripts\setup.mongodb.js" />
     <Compile Include="repository\scripts\setup.mongodb.spec.js" />
@@ -111,7 +110,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".git" />
-    <Folder Include="entities\" />
+    <Folder Include="models\" />
     <Folder Include="modules\" />
     <Folder Include="public\js\components\" />
     <Folder Include="repository\scripts\" />
@@ -133,15 +132,16 @@
     <Folder Include="views\task\condition\" />
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="entities\condition.snapshot.ts" />
-    <TypeScriptCompile Include="entities\condition.ts" />
-    <TypeScriptCompile Include="entities\group.ts" />
-    <TypeScriptCompile Include="entities\permission.ts" />
-    <TypeScriptCompile Include="entities\task.snapshot.ts" />
-    <TypeScriptCompile Include="entities\user.snapshot.ts" />
-    <TypeScriptCompile Include="entities\task.ts" />
-    <TypeScriptCompile Include="entities\user.ts" />
+    <TypeScriptCompile Include="models\condition.snapshot.ts" />
+    <TypeScriptCompile Include="models\condition.ts" />
+    <TypeScriptCompile Include="models\group.ts" />
+    <TypeScriptCompile Include="models\permission.ts" />
+    <TypeScriptCompile Include="models\task.snapshot.ts" />
+    <TypeScriptCompile Include="models\user.snapshot.ts" />
+    <TypeScriptCompile Include="models\task.ts" />
+    <TypeScriptCompile Include="models\user.ts" />
     <TypeScriptCompile Include="modules\util.ts" />
+    <TypeScriptCompile Include="repository\condition.ts" />
     <TypeScriptCompile Include="repository\group.ts" />
     <TypeScriptCompile Include="repository\base.ts" />
     <TypeScriptCompile Include="repository\user.ts" />

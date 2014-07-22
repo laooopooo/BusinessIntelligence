@@ -1,4 +1,4 @@
-﻿var Condition = require('../entities/condition'),
+﻿var Condition = require('../models/condition'),
     ConditionRepository = require('../repository/condition'),
     Base = require('./base'),
     klass = require('klass'),

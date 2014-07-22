@@ -1,7 +1,7 @@
 ﻿var config = require('../config'),
     crypto = require("crypto-js"),
     extend = require('extend'),
-    User = require('../entities/user');
+    User = require('../models/user');
 
 import BaseRepository = require('./base');
 
@@ -10,11 +10,11 @@ class UserRepository extends BaseRepository {
         super(user);
     }
 
-    getById(id: string, done: Function) {
+    getById(id: string, done: ICallback) {
         return User.findById(id, done);
     }
 
-    create(email: string, password: string, done: Function) {
+    create(email: string, password: string, done: ICallback) {
         email = email.toLowerCase();
 
         return User.findOne({
@@ -38,7 +38,7 @@ class UserRepository extends BaseRepository {
         });
     }
 
-    update(user: User, done: Function) {
+    update(user: User, done: ICallback) {
         var set = {
             groups: user.groups,
             first_name: user.first_name,
@@ -62,7 +62,7 @@ class UserRepository extends BaseRepository {
         }, done);
     }
 
-    updateMetrics(user: User, done: Function) {
+    updateMetrics(user: User, done: ICallback) {
         ///<summary>Updates metrics</summary>
 
         return User.findByIdAndUpdate(user.id, {
@@ -75,14 +75,14 @@ class UserRepository extends BaseRepository {
         }, done);
     }
 
-    findByEmailPassword(email: string, password: string, done: Function) {
+    findByEmailPassword(email: string, password: string, done: ICallback) {
         return User.findOne({
             email: email.toLowerCase(),
             password: this._hashPassword(password)
         }, done);
     }
 
-    getAll(done: Function) {
+    getAll(done: ICallback) {
         return User.find({})
             .populate('groups')
             .sort({ email: 1 })

@@ -4,8 +4,7 @@
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-var Group = require('../entities/group');
-
+var Group = require('../models/group');
 var BaseRepository = require('./base');
 
 var GroupRepository = (function (_super) {

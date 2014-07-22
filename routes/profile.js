@@ -1,6 +1,6 @@
 ﻿var UserService = require('../services/user'),
     View = require('../views/view'),
-    User = require('../entities/user'),
+    User = require('../models/user'),
     logger = require('../logger').getLogger('routes/profile'),
     route = require('./route'),
     extend = require('extend');
