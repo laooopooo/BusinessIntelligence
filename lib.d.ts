@@ -10,8 +10,12 @@ interface ICallback{
 }
 
 interface IMongooseSearchable{
-    findOne(item:any, callback:ICallback) : void;
-    find(item:any, callback:ICallback) : void;
+    findOne(cond: Object, callback: ICallback): void;
+    find(cond: Object, callback: ICallback): void;
+    find(cond: Object, fields: Object, options: Object, callback: ICallback): void;
+    findById(id: string, callback: ICallback): void;
+    distinct(path: string, callback: ICallback): void;
+    save(callback: ICallback): void;
 }
 
 interface Transferable {
@@ -37,8 +41,8 @@ interface User extends Model {
     groups: string[];
     permissions: string[];
     metrics: {
-        previous_login_date: any;
-        current_login_date: any;
+        previous_login_date: Date;
+        current_login_date: Date;
     };
 }
 
@@ -81,6 +85,9 @@ interface Group extends Model {
 }
 
 interface Permission extends Model {
+    new (obj?: {
+        name: string
+    });
     name: string;
 }
 
@@ -93,6 +100,7 @@ interface TaskOutput {
 }
 
 interface Task extends Model {
+    new (obj?: Object);
     name: string;
     description: string;
     external_id: string;
