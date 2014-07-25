@@ -81,10 +81,12 @@ controllers.controller('NavbarCtrl', ['$scope', '$window', 'Application', 'Metri
                     }
                 });
             }
-
-            $('li.dropdown').click(function() {
-                $(this).removeClass('open');
-            });
+        
+            setTimeout(function () {
+                $('li.dropdown').click(function () {
+                    $(this).removeClass('open');
+                });
+            }, 13);
         });
 
         $scope.signin = function() {

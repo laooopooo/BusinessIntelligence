@@ -1,6 +1,6 @@
 {
   "name": "nya-bootstrap-select",
-  "version": "1.2.3",
+  "version": "1.2.6",
   "main": "src/nya-bootstrap-select.js",
   "ignore": [
     "**/.*",
@@ -18,14 +18,14 @@
     "angular-mocks": "*"
   },
   "homepage": "https://github.com/lordfriend/nya-bootstrap-select",
-  "_release": "1.2.3",
+  "_release": "1.2.6",
   "_resolution": {
     "type": "version",
-    "tag": "v1.2.3",
-    "commit": "2fe742fb36dd9c5c2ae3af29ca97b77c21b98f15"
+    "tag": "1.2.6",
+    "commit": "deb91e2b3c23e0fa8da592d75d5e659859aae5f7"
   },
   "_source": "git://github.com/lordfriend/nya-bootstrap-select.git",
-  "_target": "~1.2.3",
+  "_target": "~1.2.6",
   "_originalSource": "nya-bootstrap-select",
   "_direct": true
 }
