@@ -33,7 +33,7 @@ class ConditionRepository extends BaseRepository {
     }
 
     save(conditionDto: Condition, done: ICallback) {
-        return Condition.findById(conditionDto.id, function (err, condition) {
+        return Condition.findById(conditionDto.id, (err, condition) => {
             condition = condition || new Condition({
                 _id: conditionDto.id,
                 audit: {
@@ -41,7 +41,7 @@ class ConditionRepository extends BaseRepository {
                 }
             });
 
-            return async.map(conditionDto.affects, function (affect, affectProcessedCallback) {
+            return async.map(conditionDto.affects, (affect, affectProcessedCallback) => {
                 if (affect.task.is_transient) {
                     return this.repositories.thirdtaskRepository.save(affect.task, (err, task) => {
 

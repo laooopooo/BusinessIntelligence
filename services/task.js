@@ -22,7 +22,7 @@ var TaskService = Base.extend(function (user) {
             ///<param name="map">Map function</param>
             ///<param name="done">Done callback</param>
 
-          return new ConditionRepository().getById(id, function(err, condition) {
+          return new ConditionRepository(this.user).getById(id, function(err, condition) {
               if (err) return done(err);
 
               return new TaskRepository(this.user).getByIds(condition.dependencies, function(err, tasks) {

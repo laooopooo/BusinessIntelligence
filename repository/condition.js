@@ -33,18 +33,18 @@ var ConditionRepository = (function (_super) {
     };
 
     ConditionRepository.prototype.save = function (conditionDto, done) {
+        var _this = this;
         return Condition.findById(conditionDto.id, function (err, condition) {
-            var _this = this;
             condition = condition || new Condition({
                 _id: conditionDto.id,
                 audit: {
-                    created_by: this.user.id
+                    created_by: _this.user.id
                 }
             });
 
             return async.map(conditionDto.affects, function (affect, affectProcessedCallback) {
                 if (affect.task.is_transient) {
-                    return this.repositories.thirdtaskRepository.save(affect.task, function (err, task) {
+                    return _this.repositories.thirdtaskRepository.save(affect.task, function (err, task) {
                         affect.task = task;
 
                         return affectProcessedCallback(err, affect);
