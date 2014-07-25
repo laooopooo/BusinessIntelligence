@@ -212,7 +212,7 @@ class TaskRepository extends BaseRepository {
         ///<param name="criteria">Criteria</param>
         ///<param name="done">Done callback</param>
 
-        return async.parallel([{
+        return async.parallel({
             byName: (callback) => {
                 Task.find({
                     name: new RegExp(criteria, 'i')
@@ -223,7 +223,7 @@ class TaskRepository extends BaseRepository {
                     description: new RegExp(criteria, 'i')
                 }, callback);
             }
-        }], (err, results) => {
+        }, (err, results) => {
             if (err) return done(err);
 
             var tasks = Enumerable.from(results.byName).union(results.byDescription).distinct((task) => {

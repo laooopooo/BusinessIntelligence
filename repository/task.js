@@ -229,18 +229,18 @@ var TaskRepository = (function (_super) {
         ///<summary>Finds tasks by term</summary>
         ///<param name="criteria">Criteria</param>
         ///<param name="done">Done callback</param>
-        return async.parallel([{
-                byName: function (callback) {
-                    Task.find({
-                        name: new RegExp(criteria, 'i')
-                    }, callback);
-                },
-                byDescription: function (callback) {
-                    Task.find({
-                        description: new RegExp(criteria, 'i')
-                    }, callback);
-                }
-            }], function (err, results) {
+        return async.parallel({
+            byName: function (callback) {
+                Task.find({
+                    name: new RegExp(criteria, 'i')
+                }, callback);
+            },
+            byDescription: function (callback) {
+                Task.find({
+                    description: new RegExp(criteria, 'i')
+                }, callback);
+            }
+        }, function (err, results) {
             if (err)
                 return done(err);
 
