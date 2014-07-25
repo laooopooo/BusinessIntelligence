@@ -46,7 +46,6 @@
     <Compile Include="public\js\task.services.js" />
     <Compile Include="repository\scripts\setup.mongodb.js" />
     <Compile Include="repository\scripts\setup.mongodb.spec.js" />
-    <Compile Include="repository\user.snapshot.js" />
     <Compile Include="routes\index.js" />
     <Compile Include="routes\management.js" />
     <Compile Include="routes\metrics.js" />
