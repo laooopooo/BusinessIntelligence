@@ -1,3 +1,7 @@
 language: node_js
 node_js:
   - "0.10"
+install:
+  - "npm install -g typescript"
+script:
+  - "tsc --module CommonJS --sourcemap --target ES5 @lib.files.txt"

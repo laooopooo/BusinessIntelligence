@@ -25,6 +25,7 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
+    <Content Include=".travis.yml" />
     <Content Include="info.txt" />
     <Content Include="lib.d.ts" />
     <Content Include="package.json" />
