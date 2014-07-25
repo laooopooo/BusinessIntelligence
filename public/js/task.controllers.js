@@ -511,22 +511,22 @@ taskControllers.controller('CreateUpdateConditionCtrl', ['$scope', 'ConditionsFa
         $scope.condition.validate = function() {
             var condition = $scope.condition;
 
-            var valid = false;
-
-            if ($scope.mode.input) {
-                valid = condition.ui.input.length || condition.api.input.length;
-            } else if ($scope.mode.output) {
-                valid = condition.ui.output.length || condition.api.output.length;
-            }
+            var valid = true;
 
             switch(condition.condition_type) {
             case "Setting":
+                if ($scope.mode.input) {
+                    valid = condition.ui.input.length || condition.api.input.length;
+                } else if ($scope.mode.output) {
+                    valid = condition.ui.output.length || condition.api.output.length;
+                }
+
                 valid = valid && condition.setting.name.length &&
                     condition.setting.level.length &&
                     condition.setting.value.length;
                 break;
             default:
-                valid = valid && condition.description.length;
+                valid = condition.description.length;
                 break;
             }
             return valid;
