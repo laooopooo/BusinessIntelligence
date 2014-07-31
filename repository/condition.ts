@@ -43,7 +43,7 @@ class ConditionRepository extends BaseRepository {
 
             return async.map(conditionDto.affects, (affect, affectProcessedCallback) => {
                 if (affect.task.is_transient) {
-                    return this.repositories.thirdtaskRepository.save(affect.task, (err, task) => {
+                    return this.repositories.taskRepository.save(affect.task, (err, task) => {
 
                         affect.task = task;
 

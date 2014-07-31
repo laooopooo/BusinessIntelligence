@@ -44,7 +44,7 @@ var ConditionRepository = (function (_super) {
 
             return async.map(conditionDto.affects, function (affect, affectProcessedCallback) {
                 if (affect.task.is_transient) {
-                    return _this.repositories.thirdtaskRepository.save(affect.task, function (err, task) {
+                    return _this.repositories.taskRepository.save(affect.task, function (err, task) {
                         affect.task = task;
 
                         return affectProcessedCallback(err, affect);
