@@ -4,12 +4,11 @@
 /// <reference path="typescript/lodash/lodash.d.ts" />
 /// <reference path="typescript/mongoose/mongoose.d.ts" />
 
-
-interface ICallback{
+interface ICallback {
     (error: any, item?: any): void;
 }
 
-interface IMongooseSearchable{
+interface IMongooseSearchable {
     findOne(cond: Object, callback: ICallback): void;
     find(cond: Object, callback: ICallback): void;
     find(cond: Object, fields: Object, options: Object, callback: ICallback): void;

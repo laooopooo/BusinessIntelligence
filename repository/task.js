@@ -4,10 +4,11 @@
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-var TaskSnapshot = require('../models/task.snapshot'), ConditionRepository = require('./condition'), Enumerable = require('linq'), async = require('async'), extend = require('extend'), Util = require('../modules/util');
+var TaskSnapshot = require('../models/task.snapshot'), Enumerable = require('linq'), async = require('async'), extend = require('extend'), Util = require('../modules/util');
 
 var Task = require('../models/task');
 var BaseRepository = require('./base');
+var ConditionRepository = require('./condition');
 
 var TaskRepository = (function (_super) {
     __extends(TaskRepository, _super);
@@ -229,23 +230,141 @@ var TaskRepository = (function (_super) {
         ///<summary>Finds tasks by term</summary>
         ///<param name="criteria">Criteria</param>
         ///<param name="done">Done callback</param>
+        var _this = this;
         return async.parallel({
             byName: function (callback) {
-                Task.find({
-                    name: new RegExp(criteria, 'i')
-                }, callback);
+                return Task.find({ name: new RegExp(criteria, 'i') }, function (err, tasks) {
+                    if (err)
+                        return callback(err);
+
+                    return callback(err, Enumerable.from(tasks).select(function (task) {
+                        return {
+                            id: task.id,
+                            name: task.name,
+                            description: task.description
+                        };
+                    }).toArray());
+                });
             },
             byDescription: function (callback) {
-                Task.find({
-                    description: new RegExp(criteria, 'i')
-                }, callback);
+                return Task.find({ description: new RegExp(criteria, 'i') }, function (err, tasks) {
+                    if (err)
+                        return callback(err);
+
+                    return callback(err, Enumerable.from(tasks).select(function (task) {
+                        return {
+                            id: task.id,
+                            name: task.name,
+                            description: task.description
+                        };
+                    }).toArray());
+                });
+            },
+            byInputs: function (callback) {
+                return new ConditionRepository(_this.user).findByName(criteria, function (err, conditions) {
+                    if (err)
+                        return callback(err);
+
+                    return Task.find({
+                        'inputs.conditions': {
+                            $in: Enumerable.from(conditions).select(function (condition) {
+                                return condition.id;
+                            }).toArray()
+                        }
+                    }, function (err, tasks) {
+                        if (err)
+                            return callback(err);
+
+                        return async.map(tasks, function (task, taskInputCallback) {
+                            var taskInputConditions = Enumerable.from(task.inputs).selectMany(function (input) {
+                                return input.conditions;
+                            });
+
+                            var matchedConditions = Enumerable.from(conditions).where(function (condition) {
+                                return taskInputConditions.any(function (taskInputCondition) {
+                                    return taskInputCondition == condition.id;
+                                });
+                            }).toArray();
+
+                            return taskInputCallback(err, {
+                                id: task.id,
+                                name: task.name,
+                                description: task.description,
+                                inputs: matchedConditions
+                            });
+                        }, function (err, tasks) {
+                            if (err)
+                                return callback(err);
+
+                            return callback(err, tasks);
+                        });
+                    });
+                });
+            },
+            byOutputs: function (callback) {
+                return new ConditionRepository(_this.user).findByName(criteria, function (err, conditions) {
+                    if (err)
+                        return callback(err);
+
+                    return Task.find({
+                        'outputs.conditions': {
+                            $in: Enumerable.from(conditions).select(function (condition) {
+                                return condition.id;
+                            }).toArray()
+                        }
+                    }, function (err, tasks) {
+                        if (err)
+                            return callback(err);
+
+                        return async.map(tasks, function (task, taskOutputCallback) {
+                            var taskOutputConditions = Enumerable.from(task.outputs).selectMany(function (output) {
+                                return output.conditions;
+                            });
+
+                            var matchedConditions = Enumerable.from(conditions).where(function (condition) {
+                                return taskOutputConditions.any(function (taskOutputCondition) {
+                                    return taskOutputCondition == condition.id;
+                                });
+                            }).toArray();
+
+                            return taskOutputCallback(err, {
+                                id: task.id,
+                                name: task.name,
+                                description: task.description,
+                                outputs: matchedConditions
+                            });
+                        }, function (err, tasks) {
+                            if (err)
+                                return callback(err);
+
+                            return callback(err, tasks);
+                        });
+                    });
+                });
+            },
+            byExternalId: function (callback) {
+                return Task.find({ external_id: new RegExp(criteria, 'i') }, function (err, tasks) {
+                    if (err)
+                        return callback(err);
+
+                    return callback(err, Enumerable.from(tasks).select(function (task) {
+                        return {
+                            id: task.id,
+                            name: task.name,
+                            description: task.description,
+                            external_id: task.external_id
+                        };
+                    }).toArray());
+                });
             }
         }, function (err, results) {
             if (err)
                 return done(err);
 
-            var tasks = Enumerable.from(results.byName).union(results.byDescription).distinct(function (task) {
+            var tasks = Enumerable.from(results.byName).union(results.byDescription).union(results.byInputs).union(results.byOutputs).union(results.byExternalId).distinct(function (task) {
                 return task.id;
+            }).orderBy(function (task) {
+                return task.name;
             }).toArray();
 
             return done(err, tasks);

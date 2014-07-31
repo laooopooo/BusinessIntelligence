@@ -1,28 +1,21 @@
-﻿var logger = require('../logger').getLogger('routes/search'),
-    route = require('./route'),
-    extend = require('extend'),
-    TaskService = require('../services/task'),
-    Enumerable = require('linq');
+﻿var route = require('./route'), TaskService = require('../services/task');
 
-exports.register = function (app) {
-    ///<summary>Registeres routes</summary>
-    ///<param name="app">Application</param>
-
+function register(app) {
     app.get('/search/tasks.json/:criteria', route.private({ 'task': ['read'] }), exports.tasks);
 
     return this;
-};
+}
+exports.register = register;
 
-exports.tasks = function (req, res, next) {
-    ///<summary>Search tasks</summary>
-
-    var criteria = req.params.criteria;
-
-    return new TaskService(req.user).searchTasks(criteria, function(task) {
-        return task.toDto();
-    }, function(err, tasks) {
-        if (err) return next(err);
+function tasks(req, res, next) {
+    return new TaskService(req.user).searchTasks(req.params.criteria, function (task) {
+        return task;
+    }, function (err, tasks) {
+        if (err)
+            return next(err);
 
         return res.json(tasks);
     });
-};
+}
+exports.tasks = tasks;
+//# sourceMappingURL=search.js.map

@@ -9,7 +9,7 @@ import BaseRepository = require('./base');
 
 class ConditionRepository extends BaseRepository {
     repositories: any;
-    constructor(user: User, repositories: any) {
+    constructor(user: User, repositories?: any) {
         super(user);
         this.repositories = repositories;
     }

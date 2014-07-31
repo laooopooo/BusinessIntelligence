@@ -54,7 +54,6 @@
     <Compile Include="routes\profile.js" />
     <Compile Include="routes\route.js" />
     <Compile Include="routes\context.js" />
-    <Compile Include="routes\search.js" />
     <Compile Include="routes\task.js" />
     <Compile Include="routes\user.js" />
     <Compile Include="services\auth.js" />
@@ -148,6 +147,7 @@
     <TypeScriptCompile Include="repository\task.ts" />
     <TypeScriptCompile Include="repository\user.snapshot.ts" />
     <TypeScriptCompile Include="repository\user.ts" />
+    <TypeScriptCompile Include="routes\search.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />
