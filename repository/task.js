@@ -361,9 +361,22 @@ var TaskRepository = (function (_super) {
             if (err)
                 return done(err);
 
-            var tasks = Enumerable.from(results.byName).union(results.byDescription).union(results.byInputs).union(results.byOutputs).union(results.byExternalId).distinct(function (task) {
-                return task.id;
-            }).orderBy(function (task) {
+            var taskCandidates = Enumerable.from(results.byName).union(results.byDescription).union(results.byInputs).union(results.byOutputs).union(results.byExternalId);
+
+            var tasks = Enumerable.empty();
+            taskCandidates.forEach(function (taskCandidate) {
+                var task = tasks.firstOrDefault(function (task) {
+                    return task.id == taskCandidate.id;
+                });
+
+                if (task) {
+                    extend(task, taskCandidate);
+                } else {
+                    tasks = tasks.union(Enumerable.from([taskCandidate]));
+                }
+            });
+
+            tasks.orderBy(function (task) {
                 return task.name;
             }).toArray();
 

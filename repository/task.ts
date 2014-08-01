@@ -332,17 +332,29 @@ class TaskRepository extends BaseRepository {
         }, (err, results) => {
             if (err) return done(err);
 
-            var tasks = Enumerable
+            var taskCandidates = Enumerable
                 .from(results.byName)
                 .union(results.byDescription)
                 .union(results.byInputs)
                 .union(results.byOutputs)
-                .union(results.byExternalId)
-                .distinct((task: Task) => {
-                    return task.id;
-                }).orderBy((task: Task) => {
-                    return task.name;
-                }).toArray();
+                .union(results.byExternalId);
+
+            var tasks = Enumerable.empty();
+            taskCandidates.forEach((taskCandidate: Task) => {
+                var task: Task = tasks.firstOrDefault((task: Task) => {
+                    return task.id == taskCandidate.id;
+                });
+
+                if (task) {
+                    extend(task, taskCandidate);
+                } else {
+                    tasks = tasks.union(Enumerable.from([taskCandidate]));
+                }
+            });
+
+            tasks.orderBy((task: Task) => {
+                return task.name;
+            }).toArray();
 
             return done(err, tasks);
         });
