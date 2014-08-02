@@ -90,7 +90,7 @@ exports.viewCondition = function(req, res, next) {
 };
 
 exports.getTask = function (req, res, next) {
-    ///<summary>Gets task by id</summary>
+    ///<summary> Gets task by id </summary>
     
     var id = req.params.id;
 
