@@ -24,6 +24,7 @@ class TaskRepository extends BaseRepository {
             if (err) return done(err);
 
             var taskDto = task.toDto();
+
             return async.parallel([
                 (callback) => {
                     return async.map(task.inputs, (input, inputCallback) => {

@@ -23,15 +23,24 @@ var userSchema = new Schema({
 });
 
 userSchema.methods.toDto = function() {
-    return {
+    var dto = {
         id: this.id,
         email: this.email,
         first_name: this.first_name,
         last_name: this.last_name,
+        display_name: '',
         avatar: this.avatar,
         access: this.access,
         metrics: this.metrics
     };
+
+    if (this.first_name || this.last_name) {
+        dto.display_name = util.format('%s %s', this.first_name, this.last_name);
+    } else {
+        dto.display_name = util.format('%s', this.email);
+    }
+
+    return dto;
 };
 
 var User = <User>mongoose.model('User', userSchema);

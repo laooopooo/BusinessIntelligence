@@ -59,7 +59,6 @@
     <Compile Include="services\auth.js" />
     <Compile Include="services\base.js" />
     <Compile Include="services\condition.js" />
-    <Compile Include="services\task.js" />
     <Compile Include="services\user.js" />
     <Content Include="public\css\alltasks.css" />
     <Content Include="public\images\knowledgeBase48x48.png" />
@@ -103,6 +102,7 @@
     <Content Include="views\task\layout.jade" />
     <Content Include="views\task\create_update.jade" />
     <Content Include="views\task\partial_task_view_general.jade" />
+    <Content Include="views\task\partial_task_view_header.jade" />
     <Content Include="views\task\partial_task_view_inputs.jade" />
     <Content Include="views\task\partial_task_view_outputs.jade" />
     <Content Include="views\task\view.jade" />
@@ -149,6 +149,7 @@
     <TypeScriptCompile Include="repository\user.snapshot.ts" />
     <TypeScriptCompile Include="repository\user.ts" />
     <TypeScriptCompile Include="routes\search.ts" />
+    <TypeScriptCompile Include="services\task.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <Import Project="$(VSToolsPath)\Node.js Tools\Microsoft.NodejsTools.targets" />

@@ -28,6 +28,7 @@ var TaskRepository = (function (_super) {
                 return done(err);
 
             var taskDto = task.toDto();
+
             return async.parallel([
                 function (callback) {
                     return async.map(task.inputs, function (input, inputCallback) {

@@ -21,8 +21,6 @@ exports.register = function (app) {
     app.get('/task/task.json/:id', route.private({ 'task': ['read'] }), exports.getTask);
     app.post('/task/task.json', route.private({ 'task': ['create'] }), exports.saveTask);
 
-    app.get('/task/condition.json/:id', route.private({ 'task': ['read']}), exports.getConditionById);
-
     app.get('/task/partners.json/:name', route.private({ 'task': ['read']}), exports.getPartners);
 
     app.get('/task/conditions.json/:name', route.private({ 'task': ['read']}), exports.getConditionsByName);

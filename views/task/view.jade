@@ -3,6 +3,7 @@
 block task-content
     div(ng-controller="ViewTaskCtrl", ng-init="init('#{id}')")
         form(role="form")
+            include partial_task_view_header
             include partial_task_view_general
             include partial_task_view_inputs
             include partial_task_view_outputs

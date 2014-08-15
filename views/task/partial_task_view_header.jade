@@ -1,0 +1,10 @@
+﻿.row
+    .col-md-12.text-right
+        span.glyphicon.glyphicon-plus
+        |  
+        | {{task.audit.created_by.display_name}} / {{task.audit.created_date | date: 'MM/dd/yyyy'}}
+        |  |
+        |  
+        span.glyphicon.glyphicon-pencil
+        |  
+        | {{task.audit.modified_by.display_name}} / {{task.audit.modified_date | date: 'MM/dd/yyyy'}}

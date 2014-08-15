@@ -36,6 +36,13 @@ taskSchema.methods.toDto = function () {
         availability: {
             availability_type: this.availability.availability_type,
             partners: this.availability.partners
+        },
+        audit: {
+            created_by: this.audit.created_by,
+            created_date: this.audit.created_date,
+            modified_by: this.audit.modified_by,
+            modified_date: this.audit.modified_date,
+            revision: this.audit.revision
         }
     };
 };

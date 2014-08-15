@@ -22,13 +22,16 @@ interface Transferable {
 }
 
 interface Auditable {
-    modified_date: any;
+    created_by: string;
+    created_date: Date;
+    modified_by: string;
+    modified_date: Date;
     revision: number;
 }
 
 interface Model extends Transferable, IMongooseSearchable {
     id: string;
-    audit: Auditable;
+    audit?: Auditable;
 }
 
 interface User extends Model {
@@ -36,6 +39,7 @@ interface User extends Model {
     password: string;
     first_name: string;
     last_name: string;
+    display_name: string;
     avatar: string;
     groups: string[];
     permissions: string[];
