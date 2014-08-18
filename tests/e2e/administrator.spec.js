@@ -25,8 +25,6 @@ describe('an Administrator', function() {
         app.navigation.menu.management.self.click();
 
         expect(app.navigation.menu.management.users.isPresent()).toBeTruthy();
-
-        app.navigation.menu.management.self.click();
     });
 
     it('should be able to sign out after sign in', function() {

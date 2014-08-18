@@ -24,6 +24,10 @@ describe('an User', function() {
     it('able to search', function() {
         expect(app.home.search.self.isPresent()).toBeTruthy();
     });
+    
+    it('able to see all tasks', function () {
+        expect(app.navigation.menu.allTasks.self.isPresent()).toBeTruthy();
+    });
 
     it('should be able to sign out after sign in', function() {
         user.signout().then(function() {

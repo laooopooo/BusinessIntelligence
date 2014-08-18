@@ -10,11 +10,14 @@
         },
         menu: {
             newTask: {
-                self: element(by.css('#navigation-bar #NewTask'))
+                self: element(by.id('nav-newtask'))
+            },
+            allTasks: {
+                self: element(by.id('nav-alltasks'))
             },
             management: {
-                self: element(by.css('#navigation-bar #Management')),
-                users : element(by.css('#navigation-bar #Users'))
+                self: element(by.id('nav-management')),
+                users : element(by.id('nav-management-users'))
             }
         }
     };

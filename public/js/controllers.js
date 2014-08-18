@@ -40,7 +40,7 @@ controllers.controller('NavbarCtrl', ['$scope', '$window', 'Application', 'Metri
 
             if (user.access.taskCreate) {
                 $scope.navigation.groups.push({
-                    id: 'NewTask',
+                    id: 'nav-newtask',
                     name: 'NEW TASK',
                     type: 'button',
                     icon: 'glyphicon glyphicon-plus',
@@ -48,23 +48,23 @@ controllers.controller('NavbarCtrl', ['$scope', '$window', 'Application', 'Metri
                 });
             }
 
-            var allTasks = {
-                id: 'AllTasks',
+            $scope.navigation.groups.push({
+                id: 'nav-alltasks',
                 name: 'ALL TASKS',
                 icon: 'glyphicon glyphicon-list',
                 type: 'button',
                 path: '/task/all'
-            };
-
-            $scope.navigation.groups.push(allTasks);
+            });
 
             if (user.access.manageUsers) {
                 $scope.navigation.groups.push({
+                    id: 'nav-management',
                     name: 'MANAGEMENT',
                     icon: 'glyphicon glyphicon-cog',
                     type: 'dropdown',
                     path: '/management',
                     items: [{
+                        id: 'nav-management-users',
                         name: 'USERS',
                         path: '/management/users',
                         icon: 'glyphicon glyphicon-user'
@@ -86,7 +86,7 @@ controllers.controller('NavbarCtrl', ['$scope', '$window', 'Application', 'Metri
                 $('li.dropdown').click(function () {
                     $(this).removeClass('open');
                 });
-            }, 13);
+            }, 3);
         });
 
         $scope.signin = function() {

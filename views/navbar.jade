@@ -9,25 +9,24 @@
                 if user
                     a.navbar-brand(href="/")
                         span.glyphicon.glyphicon-home
-            .navbar-collapse.collapse
-                #navigation-bar
+            #navigation-bar.navbar-collapse.collapse
                 if user
-                        ul.nav.navbar-nav(ng-repeat="group in navigation.groups", ng-switch on="group.type")
-                            li.dropdown(ng-switch-when="dropdown", ng-class="{ active: isActive(group.path)}")
-                                a(ng-href="#", data-toggle="dropdown", id="{{group.id || group.name}}").dropdown-toggle
-                                    span(class="{{group.icon}}")
-                                    |  {{group.name}} 
-                                    b.caret
-                                ul.dropdown-menu
-                                    li(ng-repeat="item in group.items")
-                                        a(href="{{item.path}}", id="{{item.id || item.name}}")
-                                            span(class="{{item.icon}}")
-                                            |  {{item.name}}
-                            li(ng-switch-when="button", ng-class="{ active: isActive(group.path)}")
-                                a(href="{{group.path}}", id="{{group.id || group.name}}")
-                                    span(class="{{group.icon}}")
-                                    |  {{group.name}}
-                                    |  
-                                    span.badge(ng-show="group.badge") {{group.badge.text}}
+                    ul.nav.navbar-nav(ng-repeat="group in navigation.groups", ng-switch on="group.type")
+                        li.dropdown(ng-switch-when="dropdown", ng-class="{ active: isActive(group.path)}")
+                            a(ng-href="#", data-toggle="dropdown", id="{{group.id || group.name}}").dropdown-toggle
+                                span(class="{{group.icon}}")
+                                |  {{group.name}} 
+                                b.caret
+                            ul.dropdown-menu
+                                li(ng-repeat="item in group.items")
+                                    a(href="{{item.path}}", id="{{item.id || item.name}}")
+                                        span(class="{{item.icon}}")
+                                        |  {{item.name}}
+                        li(ng-switch-when="button", ng-class="{ active: isActive(group.path)}")
+                            a(href="{{group.path}}", id="{{group.id || group.name}}")
+                                span(class="{{group.icon}}")
+                                |  {{group.name}}
+                                |  
+                                span.badge(ng-show="group.badge") {{group.badge.text}}
                 ul.nav.navbar-nav.navbar-right
                     include profile
