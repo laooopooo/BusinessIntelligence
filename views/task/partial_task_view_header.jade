@@ -1,9 +1,10 @@
 ﻿.row
-    .col-md-12
-        span.glyphicon.glyphicon-plus(style="top: -10px; left: 10px;")
-        img#img-avatar.image-avatar-small(ng-src="/{{task.audit.created_by.avatar}}", style="top: -10px; left: 10px;")
-        |  {{task.audit.created_date | date: 'MM/dd/yyyy'}}
-        span.glyphicon.glyphicon-pencil(style="top: -10px; left: 10px;")
-        img#img-avatar.image-avatar-small(ng-src="/{{task.audit.modified_by.avatar}}")
-        |  {{task.audit.modified_date | date: 'MM/dd/yyyy'}}
+    .col-md-12.text-right
+        b Created By:
+        |  {{task.audit.created_by.display_name}} {{task.audit.created_date | date: 'MM/dd/yyyy'}}
+        |  |
+        |  
+        b Last Modified:
+        |  
+        |  {{task.audit.modified_by.display_name}} {{task.audit.modified_date | date: 'MM/dd/yyyy'}}
 br

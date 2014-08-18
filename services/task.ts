@@ -83,7 +83,7 @@ class TaskService {
                     return callback(error, {
                         task: task,
                         params: {
-                            owner: user,
+                            owner: user.toDto(),
                             created_date: task.audit.created_date
                         }
                     });
