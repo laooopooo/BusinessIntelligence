@@ -119,4 +119,10 @@ controllers.controller('ProfileCtrl', ['$scope', 'ProfileFactory',
                 $scope.saving = 0;
             });
         };
+
+        $scope.validate = function () {
+            return (user.new_password === user.confirm_password) &&
+                user.first_name &&
+                user.last_name;
+        };
     }]);
