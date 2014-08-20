@@ -7,7 +7,7 @@ exports.configure = function(app) {
     log4js.configure({
      appenders: [
        { type: 'console' },
-       { type: 'file', filename: './logs/log.txt', maxLogSize: 1024 * 1024, backups: 100 }
+       { type: 'file', filename: './logs/portal.txt', maxLogSize: 1024 * 1024, backups: 100 }
       ],
      replaceConsole: true
     });

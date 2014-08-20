@@ -181,6 +181,8 @@ var UserService = Base.extend(function () { })
             
             return new UserService().findByEmailPassword(email, password, function (err, user) {
                 if (user) {
+                
+                    logger.info(util.format('User %s logged in.', email));
 
                     extend(user.metrics, {
                         previous_login_date: user.metrics.current_login_date,
