@@ -61,10 +61,10 @@ block task-content
                                         |  
                                         a(ng-click="task.$input.createUpdateCondition(input, condition)") {{condition.name}}
                                     td
-                                        div.no-wrap(ng-repeat="input in condition.ui.input track by $index")
+                                        div(ng-repeat="input in condition.ui.input track by $index")
                                             | {{input}}
                                     td
-                                        div.no-wrap(ng-repeat="input in condition.api.input track by $index")
+                                        div(ng-repeat="input in condition.api.input track by $index")
                                             | {{input}}
                                     td
                                         img.loader(src="/public/images/loader.gif", ng-show="!condition.producerTasksLoaded")
@@ -116,10 +116,10 @@ block task-content
                                             a(ng-if="!affect.task.is_transient", ng-href="/task/view/{{affect.task.id}}", target="_blank", popover="{{affect.description}}", popover-trigger="mouseenter", popover-popup-delay="300", popover-placement="right") {{affect.task.name}}
                                             span(ng-if="affect.task.is_transient", popover="{{affect.description}}", popover-trigger="mouseenter", popover-popup-delay="300", popover-placement="right") {{affect.task.name}}
                                     td
-                                        div.no-wrap(ng-repeat="output in condition.ui.output track by $index")
+                                        div(ng-repeat="output in condition.ui.output track by $index")
                                             | {{output}}
                                     td
-                                        div.no-wrap(ng-repeat="output in condition.api.output track by $index")
+                                        div(ng-repeat="output in condition.api.output track by $index")
                                             | {{output}}
                                     td
                                         img.loader(src="/public/images/loader.gif", ng-show="!condition.consumerTasksLoaded")

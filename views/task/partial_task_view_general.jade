@@ -5,7 +5,7 @@
                 label(for="name") Task Name:
                 p.form-control-static {{task.name}}
             .col-md-3.text-right
-                div(ng-show="user.access.taskUpdate").no-wrap
+                div(ng-show="user.access.taskUpdate")
                     span.glyphicon.glyphicon-pencil
                     |  
                     a(ng-href="/task/update/{{task.id}}") Update Task

@@ -25,6 +25,6 @@
                     b TFS #: 
                     span(ng-bind-html="highlight(task.external_id)")
             td.col-td-min
-                div(ng-show="user.access.taskUpdate").no-wrap
+                div(ng-show="user.access.taskUpdate")
                     a(ng-href="/task/update/{{task.id}}")
                         span.glyphicon.glyphicon-pencil
