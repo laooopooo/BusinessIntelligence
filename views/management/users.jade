@@ -15,6 +15,7 @@ block management-content
                 th First Name
                 th Last Name
                 th Groups
+                th Last login
             tr(ng-repeat="user in users")
                 td {{$index + 1}}
                 td
@@ -23,3 +24,4 @@ block management-content
                 td {{user.first_name}}
                 td {{user.last_name}}
                 td {{user.groups.join(', ')}}
+                td {{user.metrics.current_login_date | date: 'MM/dd/yyyy HH:mm:ss'}}

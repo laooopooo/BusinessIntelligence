@@ -157,16 +157,12 @@ var UserService = Base.extend(function () { })
                     .orderBy(function(user) {
                         return user.email;
                     })
-                    .select(function(user) {
-                    return {
-                        email: user.email,
-                        first_name: user.first_name,
-                        last_name: user.last_name,
-                        avatar: user.avatar,
-                        groups: Enumerable.from(user.groups).select(function(group) {
-                            return group.name;
-                        }).toArray()
-                    };
+                    .select(function (user) {
+                    return extend(user.toDto(), {
+                            groups: Enumerable.from(user.groups).select(function(group) {
+                                return group.name;
+                            }).toArray()
+                        });
                 }).toArray();
                 
                 return done(err, userDtos);

@@ -8,5 +8,9 @@ managementControllers.controller('ManagementCtrl', ['$scope',
 
 managementControllers.controller('UsersCtrl', ['$scope', 'UsersFactory',
     function ($scope, UsersFactory) {
-        $scope.users = UsersFactory.query();
+        UsersFactory.query().$promise.then(function (users) {
+            $scope.users = Enumerable.from(users).orderByDescending(function (user) {
+                return user.metrics.current_login_date;
+            }).toArray();
+        });
     }]);
