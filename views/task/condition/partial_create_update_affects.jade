@@ -11,7 +11,8 @@
             td.col-td-min.align-middle
                 a(ng-click="removeAffect(affect)")
                     span.glyphicon.glyphicon-remove
-.row
-    .col-md-6
-        input.form-control(ng-model="condition.searchAffectTask", typeahead="task as task.name for task in searchTasks($viewValue)", typeahead-on-select="pushAffect($item)", placeholder="Search for task")
-    .col-md-6
+        tr
+            td
+                input.form-control(ng-model="condition.searchAffectTask", typeahead="task as task.name for task in searchTasks($viewValue)", typeahead-on-select="pushAffect($item)", placeholder="Search for task")
+            td
+            td
