@@ -147,7 +147,7 @@ taskControllers.controller('CreateUpdateTaskCtrl', ['$scope', 'TaskFactory', 'Co
                         modalInstance.result.then(function (resultCondition) {
                             if (condition.id) {
                                 var resultCondition = ConditionBuilder.build(resultCondition);
-                                $.extend(true, condition, resultCondition);
+                                angular.extend(condition, resultCondition);
                                 condition.affects = $.extend(true, [], resultCondition.affects);
                             } else {
                                 resultCondition.id = ObjectId();
@@ -532,7 +532,7 @@ taskControllers.controller('CreateUpdateConditionCtrl', ['$scope', 'ConditionsFa
             return valid;
         };
 
-        $scope.submit = function () {
+    $scope.submit = function () {
             $modalInstance.close($scope.condition);
         };
 
