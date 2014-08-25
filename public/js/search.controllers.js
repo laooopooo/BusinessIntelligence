@@ -4,25 +4,27 @@
 
 searchControllers.controller('SearchCtrl', ['$scope', 'TaskSearchFactory', '$sce',
     function ($scope, TaskSearchFactory, $sce) {
-        $scope.search = {
-            criteria: '',
-            tasks: []
+            $scope.search = {
+                criteria: '',
+                tasks: []
         };
+    
+        $scope.highlight = function (text) {
+            var criteria = $scope.getCriteria();
 
-        $scope.highlight = function(text) {
-            if (!$scope.search.criteria) {
+            if (!$scope.getCriteria()) {
                 return $sce.trustAsHtml(text);
             }
 
-            return $sce.trustAsHtml(text.replace(new RegExp($scope.search.criteria, 'gi'), '<span class="ui-match">$&</span>'));
+            return $sce.trustAsHtml(text.replace(new RegExp(criteria, 'gi'), '<span class="ui-match">$&</span>'));
         };
 
         $scope.search = function() {
-            ///<summary>Submits user profile</summary>
-            if ($scope.search.criteria.length >= 3) {
+            var criteria = $scope.getCriteria();
+            if (criteria.length >= 3) {
                 $scope.searching = 1;
                 TaskSearchFactory.query({
-                    criteria: $scope.search.criteria
+                    criteria: criteria
                 }, function(tasks) {
                     $scope.search.tasks = tasks;
                     $scope.searching = 0;
@@ -30,5 +32,9 @@ searchControllers.controller('SearchCtrl', ['$scope', 'TaskSearchFactory', '$sce
             } else {
                 $scope.search.tasks = [];
             }
+        };
+
+        $scope.getCriteria = function() {
+            return $scope.search.criteria.replace('(', '').replace(')', '');
         };
     }]);
