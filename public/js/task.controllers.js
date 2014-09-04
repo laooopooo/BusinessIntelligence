@@ -323,6 +323,14 @@ taskControllers.controller('ViewTasksCtrl', ['$scope', 'TasksFactory',
 
         $scope.filter = {};
 
+        $scope.showFilterControls = false;
+
+        /* Filter controls stuff */
+
+        $scope.toggleVisibility = function() {
+            $scope.showFilterControls = !$scope.showFilterControls;
+        };
+
         /* Datepicker stuff */
 
         $scope.datepickers = {
@@ -335,6 +343,13 @@ taskControllers.controller('ViewTasksCtrl', ['$scope', 'TasksFactory',
             $event.stopPropagation();
             
             $scope.datepickers[datePicker] = true;
+        };
+
+        $scope.dateChanged = function() {
+            $scope.filter.startDateStamp = ($scope.startDate) ? $scope.startDate.getTime() : 0;
+            $scope.filter.endDateStamp = ($scope.endDate || new Date()).setHours(23,59,59,999);
+            $scope._pagingOptions.currentPage = 1;
+            $scope._loadTasks();
         };
 
         $scope.format = 'yyyy-MM-dd';
@@ -359,20 +374,13 @@ taskControllers.controller('ViewTasksCtrl', ['$scope', 'TasksFactory',
             $scope._pagingOptions.display = tasksCount > pageSize;
         };
 
-        $scope.pageChanged = function() {
-            $scope._loadTasks();
-        };
-
         $scope._loadTasks = function() {
             TasksFactory.query($scope.filter, function(result) {
                 return $scope._setPagingData(result);
             });
         };
 
-        $scope.dateChanged = function() {
-            $scope.filter.startDateStamp = ($scope.startDate) ? $scope.startDate.getTime() : 0;
-            $scope.filter.endDateStamp = ($scope.endDate || new Date()).setHours(23,59,59,999);
-            $scope._pagingOptions.currentPage = 1;
+        $scope.pageChanged = function() {
             $scope._loadTasks();
         };
 
