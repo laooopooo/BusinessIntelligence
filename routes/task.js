@@ -33,6 +33,8 @@ exports.register = function (app) {
     app.get('/task/getTasks.json', route.private({ 'task': ['read']}), exports.getTasks);
     app.get('/task/getTasks.json/:startDateStamp/:endDateStamp', route.private({ 'task': ['read']}), exports.getTasks);
 
+    app.get('/task/modified', route.private({ 'task': ['read']}), exports.viewModifiedTasks);
+
     return this;
 };
 
@@ -72,6 +74,15 @@ exports.viewTasks = function (req, res, next) {
     var view = new View('task/all');
     return view.render(req, res, next, {
         title: "Task | All"
+    });
+};
+
+exports.viewModifiedTasks = function (req, res, next) {
+    ///<summary>View recently modified tasks</summary>
+    
+    var view = new View('task/modified');
+    return view.render(req, res, next, {
+        title: "Task | Recently modified"
     });
 };
 

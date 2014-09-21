@@ -388,6 +388,21 @@ taskControllers.controller('ViewTasksCtrl', ['$scope', 'TasksFactory',
     }]);
 
 
+taskControllers.controller('ViewModifiedCtrl', ['$scope', 'TasksFactory',
+    function($scope, TasksFactory) {
+        
+        /// Tasks sorted by modifed date 
+        $scope.pagetasks = [];
+        
+        $scope.loadRecentlyModifed = function() {
+            $scope.pagetasks = [];
+        };
+        
+        $scope.loadRecentlyModifed();
+
+    }
+]);
+
 taskControllers.controller('ViewConditionCtrl', ['$scope', '$modalInstance', 'condition', 'mode',
     function ($scope, $modalInstance, condition, mode) {
 
