@@ -32,6 +32,12 @@ class ConditionRepository extends BaseRepository {
         }, done);
     }
 
+    getByAffectTask(task: Task, done: ICallback) {
+        return Condition.find({
+            'affects.task': task.id
+        }, done);
+    }
+
     save(conditionDto: Condition, done: ICallback) {
         return Condition.findById(conditionDto.id, (err, condition) => {
             condition = condition || new Condition({

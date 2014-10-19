@@ -23,4 +23,4 @@ taskServices.factory('ConditionsFactory', ['$resource',
 taskServices.factory('DependencyFactory', ['$resource',
     function ($resource) {
         return $resource('/task/dependency.json/:name/:id/:type');
-    }]);
+}]);

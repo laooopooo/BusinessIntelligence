@@ -1,10 +1,10 @@
 ﻿.row
     .col-md-12.text-right
-        b Created By:
+        span.label.label-default Created By:
         |  {{task.audit.created_by.display_name}} {{task.audit.created_date | date: 'MM/dd/yyyy'}}
         |  |
         |  
-        b Last Modified:
+        span.label.label-default Last Modified:
         |  
         |  {{task.audit.modified_by.display_name}} {{task.audit.modified_date | date: 'MM/dd/yyyy'}}
 br

@@ -16,13 +16,13 @@
                 div
                     span(ng-bind-html="highlight(task.description)")
                 div(ng-if="task.inputs.length")
-                    b Inputs: 
+                    span.label.label-primary Inputs: 
                     span(ng-repeat="condition in task.inputs", ng-bind-html="highlight(condition.name)", style="padding-right: 15px;")
                 div(ng-if="task.outputs.length")
-                    b Outputs: 
+                    span.label.label-success Outputs: 
                     span(ng-repeat="condition in task.outputs", ng-bind-html="highlight(condition.name)", style="padding-right: 15px;")
                 div(ng-if="task.external_id")
-                    b TFS #: 
+                    span.label.label-info TFS #: 
                     span(ng-bind-html="highlight(task.external_id)")
             td.col-td-min
                 div(ng-show="user.access.taskUpdate")

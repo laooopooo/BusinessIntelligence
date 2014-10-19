@@ -83,12 +83,27 @@ class TaskRepository extends BaseRepository {
                                 });
                         });
                     }, (err, outputs) => {
-                            if (err) return callback(err);
+                        if (err) return callback(err);
 
-                            taskDto.outputs = outputs;
+                        taskDto.outputs = outputs;
 
-                            return callback(err);
-                        });
+                        return callback(err);
+                    });
+                }, (callback) => {
+                    return new ConditionRepository(this.user).getByAffectTask(task, (err, conditions: Condition[]) => {
+                        if (err) return callback(err);
+
+                        taskDto.affects = Enumerable.from(conditions).select((condition: Condition) => {
+                            return {
+                                condition: condition,
+                                affects: Enumerable.from(condition.affects).where((affect: ConditionAffect) => {
+                                    return affect.task === task.id;
+                                }).toArray()
+                            }
+                        }).toArray();
+
+                        return callback(err);
+                    });
                 }
             ], (err) => {
                 if (err) return done(err);

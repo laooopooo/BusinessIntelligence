@@ -32,6 +32,12 @@ var ConditionRepository = (function (_super) {
         }, done);
     };
 
+    ConditionRepository.prototype.getByAffectTask = function (task, done) {
+        return Condition.find({
+            'affects.task': task.id
+        }, done);
+    };
+
     ConditionRepository.prototype.save = function (conditionDto, done) {
         var _this = this;
         return Condition.findById(conditionDto.id, function (err, condition) {

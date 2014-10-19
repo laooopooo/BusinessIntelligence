@@ -99,6 +99,22 @@ var TaskRepository = (function (_super) {
 
                         return callback(err);
                     });
+                }, function (callback) {
+                    return new ConditionRepository(_this.user).getByAffectTask(task, function (err, conditions) {
+                        if (err)
+                            return callback(err);
+
+                        taskDto.affects = Enumerable.from(conditions).select(function (condition) {
+                            return {
+                                condition: condition,
+                                affects: Enumerable.from(condition.affects).where(function (affect) {
+                                    return affect.task === task.id;
+                                }).toArray()
+                            };
+                        }).toArray();
+
+                        return callback(err);
+                    });
                 }
             ], function (err) {
                 if (err)

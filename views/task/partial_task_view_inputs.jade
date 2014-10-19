@@ -12,19 +12,19 @@
                     th Note
                 tbody
                     tr(ng-repeat="condition in input.conditions")
-                        td
+                        td.col-md-3
                             include partial_condition_icon
                             |  
                             a(ng-click="viewCondition(condition, {input: 1})") {{condition.name}}
-                        td
+                        td.col-md-3
                             div(ng-repeat="input in condition.ui.input track by $index")
-                                | {{input}}
-                        td
+                                span.label.label-primary {{input}}
+                        td.col-md-3
                             div(ng-repeat="input in condition.api.input track by $index")
-                                | {{input}}
-                        td
+                                span.label.label-success {{input}}
+                        td.col-md-2
                             img.loader(src="/public/images/loader.gif", ng-show="!condition.producerTasksLoaded")
                             div(ng-repeat="producerTask in getProducerTasks(condition)")
                                 a(ng-href="/task/view/{{producerTask.id}}", popover="{{producerTask.description}}", popover-trigger="mouseenter", popover-popup-delay="300", popover-placement="right") {{producerTask.name}}
-                        td
+                        td.col-md-1
                             span(popover="{{condition.note}}", popover-trigger="mouseenter", popover-popup-delay="300", popover-placement="right") {{trimText(condition.note, 25)}}
