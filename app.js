@@ -70,10 +70,44 @@ passport.deserializeUser(user_service.deserializeUser);
 
 var mongoose = require('mongoose');
 var config = require('./config');
-mongoose.connect(config.mongodb.connectionString);
 
-console.log(mongoose.connection.host);
-console.log(mongoose.connection.port);
+var db = mongoose.connection;
+
+db.on('connecting', function () {
+    console.log('connecting to MongoDB...');
+});
+
+db.on('error', function (error) {
+    console.error('Error in MongoDb connection: ' + error);
+    mongoose.disconnect();
+});
+db.on('connected', function () {
+    console.log('MongoDB connected!');
+
+    console.log(db.host);
+    console.log(db.port);
+});
+db.once('open', function () {
+    console.log('MongoDB connection opened!');
+});
+db.on('reconnected', function () {
+    console.log('MongoDB reconnected!');
+});
+db.on('disconnected', function () {
+    console.log('MongoDB disconnected!');
+    mongoose.connect(config.mongodb.connectionString, { server: { auto_reconnect: true } });
+});
+
+var connectWithRetry = function () {
+    return mongoose.connect(config.mongodb.connectionString, { server: { auto_reconnect: true } }, function (err) {
+        if (err) {
+            console.error('Failed to connect to mongo on startup - retrying in 5 sec', err);
+            setTimeout(connectWithRetry, 60000);
+        }
+    });
+};
+
+connectWithRetry();
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
