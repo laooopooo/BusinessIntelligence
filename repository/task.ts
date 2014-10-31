@@ -98,14 +98,6 @@ class TaskRepository extends BaseRepository {
                                 condition: condition.toDto(),
                                 affects: Enumerable.from(condition.affects).where((affect: ConditionAffect) => {
                                     return affect.task === task.id;
-                                }).select((affect) => {
-                                    return {
-                                        task: {
-                                            id: affect.task,
-                                            name: task.name
-                                        },
-                                        description: affect.description
-                                    }
                                 }).toArray()
                             }
                         }).toArray();

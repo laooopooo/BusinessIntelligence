@@ -109,14 +109,6 @@ var TaskRepository = (function (_super) {
                                 condition: condition.toDto(),
                                 affects: Enumerable.from(condition.affects).where(function (affect) {
                                     return affect.task === task.id;
-                                }).select(function (affect) {
-                                    return {
-                                        task: {
-                                            id: affect.task,
-                                            name: task.name
-                                        },
-                                        description: affect.description
-                                    };
                                 }).toArray()
                             };
                         }).toArray();
