@@ -56,13 +56,13 @@ controllers.controller('NavbarCtrl', ['$scope', '$window', 'Application', 'Metri
                 path: '/task/all'
             });
 
-            $scope.navigation.groups.push({
-                id: 'nav-modifiedtasks',
-                name: 'RECENTLY MODIFIED',
-                icon: 'glyphicon glyphicon-flag',
-                type: 'button',
-                path: '/task/modified'
-            });
+            //$scope.navigation.groups.push({
+            //    id: 'nav-modifiedtasks',
+            //    name: 'RECENTLY MODIFIED',
+            //    icon: 'glyphicon glyphicon-flag',
+            //    type: 'button',
+            //    path: '/task/modified'
+            //});
 
             if (user.access.manageUsers) {
                 $scope.navigation.groups.push({

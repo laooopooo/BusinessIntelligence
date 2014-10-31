@@ -4,8 +4,8 @@
 ]);
 
 taskControllers.controller('TaskCtrl', ['$scope', 'TasksFactory', 'DependencyFactory',
-    function ($scope, TasksFactory, DependencyFactory, TaskSearchFactory) {
-        $scope.getProducerTasks = function(condition) {
+    function ($scope, TasksFactory, DependencyFactory) {
+    $scope.getProducerTasks = function (condition) {
             if (!condition.producerTasks) {
                 condition.producerTasks = [];
                 if (condition.id) {
