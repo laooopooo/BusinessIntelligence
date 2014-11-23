@@ -47,22 +47,16 @@ controllers.controller('NavbarCtrl', ['$scope', '$window', 'Application', 'Metri
                     path: '/task/create'
                 });
             }
-
-            $scope.navigation.groups.push({
+        
+            var allTasks = {
                 id: 'nav-alltasks',
                 name: 'ALL TASKS',
                 icon: 'glyphicon glyphicon-list',
                 type: 'button',
                 path: '/task/all'
-            });
+            };
 
-            //$scope.navigation.groups.push({
-            //    id: 'nav-modifiedtasks',
-            //    name: 'RECENTLY MODIFIED',
-            //    icon: 'glyphicon glyphicon-flag',
-            //    type: 'button',
-            //    path: '/task/modified'
-            //});
+            $scope.navigation.groups.push(allTasks);
 
             if (user.access.manageUsers) {
                 $scope.navigation.groups.push({
